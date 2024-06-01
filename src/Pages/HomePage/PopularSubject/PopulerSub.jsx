@@ -17,7 +17,7 @@ const PopulerSub = () => {
     },
   });
   return (
-    <div className="container mx-auto flex justify-center items-center gap-10 px-10 mt-10">
+    <div className="container mx-auto flex justify-center items-center gap-10 px-10 mt-20">
       <div>
         <p className="bg-orange-100 p-2 mb-2 text-lg font-semibold text-red-500 border-l-4 border-red-500">
           Browse Categories
