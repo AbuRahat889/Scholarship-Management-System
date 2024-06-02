@@ -6,12 +6,14 @@ import SignUp from "../Pages/SignUp/SignUp";
 import AllScholarship from "../Pages/AllScholarship/AllScholarship";
 import Details from "../Pages/Details/Details";
 import PaymentForm from "../Pages/Payment/PaymentForm";
+import ErrorPage from "../Pages/Errorpage/ErrorPage";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
     {
         path:'/',
         element:<App></App>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/',
