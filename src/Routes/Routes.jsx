@@ -3,6 +3,8 @@ import App from "../App";
 import Home from "../Pages/HomePage/Home/Home";
 import SignIn from "../Pages/Sign in/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
+import AllScholarship from "../Pages/AllScholarship/AllScholarship";
+import Details from "../Pages/Details/Details";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -13,6 +15,14 @@ export const router = createBrowserRouter([
             {
                 path:'/',
                 element:<Home></Home>
+            },
+            {
+                path:'/allScholarShip',
+                element:<AllScholarship></AllScholarship>
+            },
+            {
+                path:'/details',
+                element:<Details></Details>
             },
             {
                 path:'/signin',

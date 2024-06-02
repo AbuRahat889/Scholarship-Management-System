@@ -15,7 +15,7 @@ const Navbar = () => {
   const navlink = (
     <div className="text-xl space-x-12">
       <NavLink to={"/"}>Home</NavLink>
-      <NavLink to={"/"}>All Scholarship</NavLink>
+      <NavLink to={"/allScholarShip"}>All Scholarship</NavLink>
       <NavLink to={"/"}>Dashboard</NavLink>
       
     </div>
