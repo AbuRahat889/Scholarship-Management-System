@@ -20,7 +20,7 @@ const Card = ({ item }) => {
   } = item;
   return (
     <div>
-      <div className="card  shadow-xl">
+      <div className="card  shadow-xl bg-white">
         <figure className="px-3 pt-3">
           <img src={img} alt="University" className="rounded-t-xl" />
         </figure>
