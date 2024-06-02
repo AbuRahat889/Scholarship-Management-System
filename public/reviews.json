@@ -1,0 +1,102 @@
+[
+    {
+        "Rating_point": 4.5,
+        "Review_comment": "Excellent university with top-notch facilities and faculty.",
+        "Review_date": "2023-01-01",
+        "University_name": "Harvard University",
+        "University_id": "HAR123",
+        "Reviewer_name": "John Doe",
+        "Reviewer_image": "john_doe.jpg",
+        "Reviewer_email": "john.doe@example.com"
+    },
+    {
+        "Rating_point": 4.8,
+        "Review_comment": "Amazing experience, highly recommend!",
+        "Review_date": "2023-02-01",
+        "University_name": "Stanford University",
+        "University_id": "STA456",
+        "Reviewer_name": "Jane Smith",
+        "Reviewer_image": "jane_smith.jpg",
+        "Reviewer_email": "jane.smith@example.com"
+    },
+    {
+        "Rating_point": 4.2,
+        "Review_comment": "Great campus and diverse programs.",
+        "Review_date": "2023-03-01",
+        "University_name": "University of Oxford",
+        "University_id": "OXF789",
+        "Reviewer_name": "Robert Brown",
+        "Reviewer_image": "robert_brown.jpg",
+        "Reviewer_email": "robert.brown@example.com"
+    },
+    {
+        "Rating_point": 3.9,
+        "Review_comment": "Good university but can improve in certain areas.",
+        "Review_date": "2023-04-01",
+        "University_name": "University of Cambridge",
+        "University_id": "CAM101",
+        "Reviewer_name": "Emily Davis",
+        "Reviewer_image": "emily_davis.jpg",
+        "Reviewer_email": "emily.davis@example.com"
+    },
+    {
+        "Rating_point": 4.7,
+        "Review_comment": "Fantastic learning environment and resources.",
+        "Review_date": "2023-05-01",
+        "University_name": "MIT",
+        "University_id": "MIT202",
+        "Reviewer_name": "Michael Wilson",
+        "Reviewer_image": "michael_wilson.jpg",
+        "Reviewer_email": "michael.wilson@example.com"
+    },
+    {
+        "Rating_point": 4.3,
+        "Review_comment": "Highly supportive staff and excellent curriculum.",
+        "Review_date": "2023-06-01",
+        "University_name": "University of Tokyo",
+        "University_id": "TOK303",
+        "Reviewer_name": "Sarah Lee",
+        "Reviewer_image": "sarah_lee.jpg",
+        "Reviewer_email": "sarah.lee@example.com"
+    },
+    {
+        "Rating_point": 4.0,
+        "Review_comment": "Great overall experience, good mix of theory and practical.",
+        "Review_date": "2023-07-01",
+        "University_name": "University of Melbourne",
+        "University_id": "MEL404",
+        "Reviewer_name": "David Martin",
+        "Reviewer_image": "david_martin.jpg",
+        "Reviewer_email": "david.martin@example.com"
+    },
+    {
+        "Rating_point": 4.6,
+        "Review_comment": "Excellent faculty and a vibrant campus life.",
+        "Review_date": "2023-08-01",
+        "University_name": "ETH Zurich",
+        "University_id": "ETH505",
+        "Reviewer_name": "Laura Clark",
+        "Reviewer_image": "laura_clark.jpg",
+        "Reviewer_email": "laura.clark@example.com"
+    },
+    {
+        "Rating_point": 4.4,
+        "Review_comment": "Very good research opportunities and support.",
+        "Review_date": "2023-09-01",
+        "University_name": "National University of Singapore",
+        "University_id": "NUS606",
+        "Reviewer_name": "James Walker",
+        "Reviewer_image": "james_walker.jpg",
+        "Reviewer_email": "james.walker@example.com"
+    },
+    {
+        "Rating_point": 3.8,
+        "Review_comment": "Good university, but expensive.",
+        "Review_date": "2023-10-01",
+        "University_name": "University of Toronto",
+        "University_id": "TOR707",
+        "Reviewer_name": "Olivia Harris",
+        "Reviewer_image": "olivia_harris.jpg",
+        "Reviewer_email": "olivia.harris@example.com"
+    }
+]

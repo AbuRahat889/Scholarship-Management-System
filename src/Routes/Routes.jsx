@@ -21,8 +21,9 @@ export const router = createBrowserRouter([
                 element:<AllScholarship></AllScholarship>
             },
             {
-                path:'/details',
-                element:<Details></Details>
+                path:'/details/:id',
+                element:<Details></Details>,
+                loader: ({params}) => fetch(`http://localhost:5000/scholarship/${params.id}`)
             },
             {
                 path:'/signin',

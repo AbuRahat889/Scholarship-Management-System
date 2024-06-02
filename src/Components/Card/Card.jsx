@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({ item }) => {
   const {
+    _id,
     University_Name,
     Scholarship_Name,
     University_image,
@@ -40,7 +41,6 @@ const Card = ({ item }) => {
               <GoDotFill />
               {University_Country}, {University_city}
             </h1>
-            
           </div>
 
           <div className="flex justify-between">
@@ -59,7 +59,7 @@ const Card = ({ item }) => {
             </div>
           </div>
           <div className="card-actions">
-            <Link to={"/details"}>
+            <Link to={`/details/${_id}`}>
               <button className="btn btn-primary">Details</button>
             </Link>
           </div>
