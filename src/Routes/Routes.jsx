@@ -5,6 +5,7 @@ import SignIn from "../Pages/Sign in/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AllScholarship from "../Pages/AllScholarship/AllScholarship";
 import Details from "../Pages/Details/Details";
+import PaymentForm from "../Pages/Payment/PaymentForm";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
                 path:'/details/:id',
                 element:<Details></Details>,
                 loader: ({params}) => fetch(`http://localhost:5000/scholarship/${params.id}`)
+            },
+            {
+                path:'/payment',
+                element:<PaymentForm></PaymentForm>
             },
             {
                 path:'/signin',

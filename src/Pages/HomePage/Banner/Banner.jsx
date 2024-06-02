@@ -11,6 +11,7 @@ import img3 from "../../../assets/image/img/banner3.png";
 import ball from "../../../assets/animation/ball.json";
 import star from "../../../assets/animation/star.json";
 import bg from "../../../assets/animation/bg-ball.json";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -31,7 +32,7 @@ const Banner = () => {
                 Through a combination of lectures, readings, and discussions,
                 students will gain a solid foundation in educational psychology.
               </p>
-              <button className="btn btn-primary">View All Course</button>
+             <Link to={'/allScholarShip'}> <button className="btn btn-primary">View All Course</button></Link>
             </div>
           </div>
         </div>
