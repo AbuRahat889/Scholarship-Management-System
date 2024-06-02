@@ -23,7 +23,7 @@ const Banner = () => {
             <img src={img2} className=" rounded-lg -mb-5" />
             <Lottie animationData={bg} className="absolute top-0 -right-16 -z-10 "></Lottie>
             <div className="text-left relative">
-                <Lottie animationData={ball} className="size-10  absolute -top-10 left-20"></Lottie>
+                <Lottie animationData={ball} className="size-16  absolute -top-14 left-20"></Lottie>
               <h1 className="text-6xl font-bold">
                 Master The Skills Drive Your Career.
               </h1>

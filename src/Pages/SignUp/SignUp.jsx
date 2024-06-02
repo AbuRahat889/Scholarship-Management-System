@@ -1,13 +1,14 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
-import img from '../../assets/image/authentication/authentication2.png'
+import img from "../../assets/image/authentication/authentication2.png";
 import { AuthContext } from "../../Contex/AuthProvaider";
 import SocailMedia from "../../Components/SocailMedia/SocailMedia";
 import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
+  const [error, setError] = useState();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -20,11 +21,39 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    //password validation
+    const hasUpperCase = /[A-Z]/;
+    const hasLowerCase = /[a-z]/;
+    const hasNumber = /[0-9]/;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (password.length < 6 || password.length > 13) {
+      return setError("Password must be between 6 and 13 characters.");
+  }
+    if (!hasUpperCase.test(password)) {
+      return setError("Password must contain at least one uppercase letter.");
+    }
+    if (!hasLowerCase.test(password)) {
+      return setError("Password must contain at least one lowercase letter.");
+    }
+    if (!hasNumber.test(password)) {
+      return setError("Password must contain at least one number.");
+    }
+    if (!hasSpecialChar.test(password)) {
+      return setError("Password must contain at least one special character.");
+    }
+
     //sign up
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate("/");
+        Swal.fire({
+          title: "Good job!",
+          text: "You Sign In Successfully!!",
+          icon: "success",
+        });
 
         //store user info in database
       })
@@ -59,7 +88,7 @@ const SignUp = () => {
           <p className="mt-3 text-xl text-center text-gray-600 ">
             Welcome back!
           </p>
-            <SocailMedia></SocailMedia>
+          <SocailMedia></SocailMedia>
 
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b  lg:w-1/4"></span>
@@ -120,6 +149,7 @@ const SignUp = () => {
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                 type="password"
               />
+              <h1 className="text-error">{error}</h1>
             </div>
 
             <div className="mt-6">
