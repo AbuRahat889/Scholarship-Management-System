@@ -16,7 +16,8 @@ const Navbar = () => {
     <div className="text-xl space-x-12">
       <NavLink to={"/"}>Home</NavLink>
       <NavLink to={"/allScholarShip"}>All Scholarship</NavLink>
-      <NavLink to={"/"}>Dashboard</NavLink>
+      <NavLink to={"/dashbord"}>Dashboard</NavLink>
+      <NavLink to={"/payment"}>payment</NavLink>
       
     </div>
   );

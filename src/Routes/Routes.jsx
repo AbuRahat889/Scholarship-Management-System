@@ -7,40 +7,45 @@ import AllScholarship from "../Pages/AllScholarship/AllScholarship";
 import Details from "../Pages/Details/Details";
 import PaymentForm from "../Pages/Payment/PaymentForm";
 import ErrorPage from "../Pages/Errorpage/ErrorPage";
+import Dashbord from "../LayOut/Dashbord";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
-    {
-        path:'/',
-        element:<App></App>,
-        errorElement:<ErrorPage></ErrorPage>,
-        children:[
-            {
-                path:'/',
-                element:<Home></Home>
-            },
-            {
-                path:'/allScholarShip',
-                element:<AllScholarship></AllScholarship>
-            },
-            {
-                path:'/details/:id',
-                element:<Details></Details>,
-                loader: ({params}) => fetch(`http://localhost:5000/scholarship/${params.id}`)
-            },
-            {
-                path:'/payment',
-                element:<PaymentForm></PaymentForm>
-            },
-            {
-                path:'/signin',
-                element:<SignIn></SignIn>
-            }
-            ,
-            {
-                path:'/signup',
-                element:<SignUp></SignUp>
-            }
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <App></App>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/allScholarShip",
+        element: <AllScholarship></AllScholarship>,
+      },
+      {
+        path: "/details/:id",
+        element: <Details></Details>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/scholarship/${params.id}`),
+      },
+      {
+        path: "/payment",
+        element: <PaymentForm></PaymentForm>,
+      },
+      {
+        path: "/signin",
+        element: <SignIn></SignIn>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+    ],
+  },
+  {
+    path: "/dashbord",
+    element: <Dashbord></Dashbord>,
+  },
+]);

@@ -2,9 +2,15 @@ import { GoDotFill } from "react-icons/go";
 import { Link, useLoaderData } from "react-router-dom";
 import Reviews from "../../Components/Reviews/Reviews";
 import img from "../../assets/image/page.jpg";
+import PaymentForm from "../Payment/PaymentForm";
 
 const Details = () => {
   const loader = useLoaderData();
+
+  const totalAmount =
+    loader.Tuition_fees + loader.Application_fees + loader.Service_charge;
+
+  console.log("total amoutn : ", totalAmount);
 
   const {
     Scholarship_Name,
@@ -19,7 +25,11 @@ const Details = () => {
     Tuition_fees,
     Application_Deadline,
     Scholarship_post_Date,
+    Service_charge,
+    Application_fees,
   } = loader || {};
+
+  const totalPrice = Tuition_fees + Service_charge + Application_fees;
 
   return (
     <div>
@@ -101,22 +111,64 @@ const Details = () => {
                   <GoDotFill />
                   Post :{Scholarship_post_Date}
                 </h1>
-                <h1>Dedline : ${Application_Deadline}</h1>
+                <h1>Dedline : {Application_Deadline}</h1>
+              </div>
+
+              <div className="flex justify-between">
+                <h1 className="flex items-center gap-1">
+                  {" "}
+                  <GoDotFill />
+                  Application Fee : ${Application_fees}
+                </h1>
+                <h1>Service Charge : ${Service_charge}</h1>
               </div>
             </div>
 
             <div className="card-actions mt-4">
-              <Link to={"/payment"}>
-                <button className="btn btn-primary">Apply </button>
+              <Link>
+                <button
+                  onClick={() =>
+                    document.getElementById("my_modal_1").showModal()
+                  }
+                  className="btn btn-primary"
+                >
+                  Apply{" "}
+                </button>
               </Link>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Open the modal using document.getElementById('ID').showModal() method */}
+      {/* <button
+        className="btn"
+        onClick={() => document.getElementById("my_modal_1").showModal()}
+      >
+        open modal
+      </button> */}
+
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <PaymentForm totalPrice={totalPrice }  Scholarship_Name ={Scholarship_Name}></PaymentForm>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
       <Reviews></Reviews>
     </div>
   );
 };
 
+// export let totalAmount;
+// exports {Details , totalAmount};
+// export  totalAmount;
 export default Details;
+
+// export default Details
+// export { Details, totalAmount };
