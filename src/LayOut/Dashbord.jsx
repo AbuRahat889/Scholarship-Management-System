@@ -31,7 +31,7 @@ const Dashbord = () => {
                   <NavLink to={"/dashbord/adminHome"}> Admin Profile</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
-                <IoSchoolSharp />
+                  <IoSchoolSharp />
                   <NavLink to={"/dashbord/addItems"}> Add Scholarship</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
@@ -54,7 +54,7 @@ const Dashbord = () => {
                   <NavLink to={"/dashbord/allusers"}>Manage Users</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
-                <MdOutlineCastForEducation />
+                  <MdOutlineCastForEducation />
                   <NavLink to={"/dashbord/allusers"}>Manage Review</NavLink>
                 </li>
               </>
@@ -62,7 +62,7 @@ const Dashbord = () => {
               <>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaHome></FaHome>
-                  <NavLink to={"/userHome"}> My Profile</NavLink>
+                  <NavLink to={"/dashbord/userprofile"}> My Profile</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <SlCalender />
