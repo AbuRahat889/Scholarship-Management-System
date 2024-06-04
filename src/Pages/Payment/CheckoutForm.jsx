@@ -5,6 +5,7 @@ import { AuthContext } from "../../Contex/AuthProvaider";
 import Swal from "sweetalert2";
 import { GoDotFill } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import ApplyScholarship from "../ApplyScholarship/ApplyScholarship";
 
 const CheckoutForm = ({ loader }) => {
   const navigate = useNavigate();
@@ -141,7 +142,7 @@ const CheckoutForm = ({ loader }) => {
         <p className="text-red-600">{error}</p>
         <div className="flex mt-2 justify-start">
           <button
-            // onClick={navigate("/applyscholarship")}
+            onClick={() => document.getElementById("my_modal_4").showModal()}
             className="btn btn-sm btn-primary my-4"
             type="submit"
             disabled={!stripe || !clientSecret}
@@ -150,6 +151,25 @@ const CheckoutForm = ({ loader }) => {
           </button>
         </div>
       </form>
+
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+      {/* <button
+        className="btn"
+        // onClick={() => document.getElementById("my_modal_4").showModal()}
+      >
+        open modal
+      </button> */}
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box w-11/12 max-w-5xl">
+          <ApplyScholarship loader={loader}></ApplyScholarship>
+
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

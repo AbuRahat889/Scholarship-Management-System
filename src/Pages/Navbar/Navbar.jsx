@@ -1,24 +1,20 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Contex/AuthProvaider";
-import './Navbar.css'
-
-
+import "./Navbar.css";
 
 const Navbar = () => {
-    const { user, logOut } = useContext(AuthContext);
-    // console.log(user);displayName
-    const handleLogout = () => {
-      logOut();
-    };
+  const { user, logOut } = useContext(AuthContext);
+  // console.log(user);displayName
+  const handleLogout = () => {
+    logOut();
+  };
 
   const navlink = (
     <div className="text-xl space-x-12">
       <NavLink to={"/"}>Home</NavLink>
       <NavLink to={"/allScholarShip"}>All Scholarship</NavLink>
-      <NavLink to={"/dashbord"}>Dashboard</NavLink>
-      <NavLink to={"/applyscholarship"}>applyscholarship</NavLink>
-      
+      <NavLink to={"/dashbord/userprofile"}>Dashboard</NavLink>
     </div>
   );
   return (

@@ -5,14 +5,15 @@ import { AuthContext } from "../../Contex/AuthProvaider";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSequre";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/image/page.jpg";
 
-const ApplyScholarship = () => {
+const ApplyScholarship = ({ loader }) => {
   const { register, handleSubmit, reset } = useForm();
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
   const axiosSequre = useAxiosSecure();
+  const navigate = useNavigate();
 
   const image_hosting_key = import.meta.env.VITE_IMAGE_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -29,6 +30,7 @@ const ApplyScholarship = () => {
         Applicant_name: user.displayName,
         Applicant_email: user.email,
         date: new Date(),
+        University_Name: event.universityname,
         Subject_Category: event.category,
         Scholarship_category: event.scholarship,
         Degree: event.degree,
@@ -37,12 +39,14 @@ const ApplyScholarship = () => {
         SSC_result: parseFloat(event.ssc),
         HSC_result: parseFloat(event.hsc),
         image: res.data.data.display_url,
+        Status: "pending",
       };
       console.log(applicationInfo); //application
       const applyItem = await axiosSequre.post("/application", applicationInfo);
       console.log(applyItem.data);
       if (applyItem.data.insertedId) {
         reset();
+        navigate("/dashbord/myapplication");
         Swal.fire({
           title: "Good job!",
           text: "You application has been done!!",
@@ -54,37 +58,7 @@ const ApplyScholarship = () => {
 
   return (
     <div>
-      <div
-        className="hero h-80"
-        style={{
-          backgroundImage: `url(${img})`,
-        }}
-      >
-        <div className="hero-overlay bg-opacity-30"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold text-white">
-              Apply Scholarship
-            </h1>
-            <div className="text-sm breadcrumbs text-white">
-              <ul>
-                <li>
-                  <Link to={"/"}>Home</Link>
-                </li>
-                <li>
-                  <Link to={"/allscholarship"}>All Scholarship</Link>
-                </li>
-                <li>
-                  <Link to={"/details"}>Details</Link>
-                </li>
-                <li>
-                  <Link>Apply</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div className="container mx-auto ">
         <SectionTitle
           subtitle={"Apply Online"}
@@ -106,6 +80,8 @@ const ApplyScholarship = () => {
               </div>
               <input
                 {...register("universityname")}
+                value={loader.University_Name}
+                readOnly
                 type="text"
                 placeholder="University name"
                 className="input input-bordered w-full "
@@ -120,6 +96,8 @@ const ApplyScholarship = () => {
               </div>
               <input
                 {...register("scholarship")}
+                readOnly
+                value={loader.Scholarship_category}
                 type="text"
                 placeholder="Scholarship category"
                 className="input input-bordered w-full "
@@ -138,6 +116,8 @@ const ApplyScholarship = () => {
               <select
                 defaultValue="default"
                 {...register("category")}
+                readOnly
+                value={loader.Subject_category}
                 className="select select-bordered"
               >
                 <option disabled value={"default"}>
@@ -228,6 +208,9 @@ const ApplyScholarship = () => {
           </div>
 
           {/* upload photo */}
+          <div className="label">
+            <span className="label-text font-semibold">Upload photo</span>
+          </div>
           <input
             {...register("image")}
             type="file"

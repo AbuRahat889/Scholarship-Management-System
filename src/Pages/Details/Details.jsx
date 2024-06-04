@@ -9,11 +9,6 @@ import PaymentForm from "../Payment/PaymentForm";
 const Details = () => {
   const loader = useLoaderData();
 
-  // const totalAmount =
-  //   loader.Application_fees + loader.Tuition_fees + loader.Service_charge;
-
-  // console.log("total amoutn : ", totalAmount);
-
   const {
     Scholarship_Name,
     University_Name,
@@ -30,8 +25,6 @@ const Details = () => {
     Service_charge,
     Application_fees,
   } = loader || {};
-
-  const totalPrice = Tuition_fees + Service_charge + Application_fees;
 
   return (
     <div>

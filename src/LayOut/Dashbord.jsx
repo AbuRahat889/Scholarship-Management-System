@@ -1,26 +1,24 @@
 import { FaBook, FaHome, FaList, FaUsers } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { SlCalender } from "react-icons/sl";
-import { IoSchoolSharp, IoWallet } from "react-icons/io5";
+import { IoSchoolSharp } from "react-icons/io5";
 import { TfiMenu } from "react-icons/tfi";
 
 //   import "../LayOut/Dashbord.css";
 import { MdOutlineCastForEducation } from "react-icons/md";
+import { VscPreview } from "react-icons/vsc";
 //   import UseAdmin from "../../Hooks/UseAdmin";
 
 const Dashbord = () => {
   //TODO : get isadmin value form database
-  // const [isAdmin] = UseAdmin();
   const isAdmin = false;
 
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="flex gap-10">
-        <div className="w-64 min-h-screen bg-[#d1a054] p-6">
-          {/* logo bistor boss */}
+        <div className="w-64 min-h-screen bg-[#bbe8eb] p-6">
           <div className="cinzel mb-10">
-            <a className=" text-xl font-black">Bistro Boss</a>
-            <p className="tracking-widest font-bold ">RESTAURANT</p>
+            <a className=" text-xl font-black">EduScholarHub</a>
           </div>
 
           <ul>
@@ -66,10 +64,13 @@ const Dashbord = () => {
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <SlCalender />
-                  <NavLink to={"/userHome"}> My Application</NavLink>
+                  <NavLink to={"/dashbord/myapplication"}>
+                    {" "}
+                    My Application
+                  </NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
-                  <IoWallet />
+                  <VscPreview />
                   <NavLink to={"/userHome"}>My reviews</NavLink>
                 </li>
               </>
