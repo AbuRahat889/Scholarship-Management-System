@@ -7,6 +7,7 @@ import AllScholarship from "../Pages/AllScholarship/AllScholarship";
 import Details from "../Pages/Details/Details";
 import ErrorPage from "../Pages/Errorpage/ErrorPage";
 import Dashbord from "../LayOut/Dashbord";
+import ApplyScholarship from "../Pages/ApplyScholarship/ApplyScholarship";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
         element: <Details></Details>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/scholarship/${params.id}`),
+      },
+      {
+        path:'/applyscholarship',
+        element:<ApplyScholarship></ApplyScholarship>
       },
       {
         path: "/signin",

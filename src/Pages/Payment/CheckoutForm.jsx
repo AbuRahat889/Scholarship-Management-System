@@ -4,8 +4,10 @@ import useAxiosSecure from "./../../Hooks/useAxiosSequre";
 import { AuthContext } from "../../Contex/AuthProvaider";
 import Swal from "sweetalert2";
 import { GoDotFill } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ loader }) => {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(AuthContext);
@@ -79,6 +81,7 @@ const CheckoutForm = ({ loader }) => {
           transactionId: paymentIntent.id,
           date: new Date(), // utc date convert. use moment js to
           scholarshipName: loader.Scholarship_Name,
+          University_Name: loader.University_Name,
           status: "pending",
         };
 
@@ -93,7 +96,7 @@ const CheckoutForm = ({ loader }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          // navigate('/dashboard/paymentHistory')
+          navigate("/applyscholarship");
         }
       }
     }
@@ -106,13 +109,18 @@ const CheckoutForm = ({ loader }) => {
           <GoDotFill />
           Scholarship Name : {loader.Scholarship_Name}
         </h1>
-        <h1 className="flex items-center gap-1"><GoDotFill /> University : {loader.University_Name}</h1>
-        <h1 className="flex items-center gap-1"><GoDotFill /> total fee : ${totalPrice} </h1>
+        <h1 className="flex items-center gap-1">
+          <GoDotFill /> University : {loader.University_Name}
+        </h1>
+        <h1 className="flex items-center gap-1">
+          <GoDotFill /> total fee : ${totalPrice}{" "}
+        </h1>
       </div>
-      
 
-
-      <form onSubmit={handleSubmit} className="mt-3 bg-base-300 rounded-xl px-10 py-5">
+      <form
+        onSubmit={handleSubmit}
+        className="mt-3 bg-base-300 rounded-xl px-10 py-5"
+      >
         <CardElement
           options={{
             style: {
@@ -133,6 +141,7 @@ const CheckoutForm = ({ loader }) => {
         <p className="text-red-600">{error}</p>
         <div className="flex mt-2 justify-start">
           <button
+            // onClick={navigate("/applyscholarship")}
             className="btn btn-sm btn-primary my-4"
             type="submit"
             disabled={!stripe || !clientSecret}
