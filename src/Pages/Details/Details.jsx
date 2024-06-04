@@ -4,13 +4,15 @@ import Reviews from "../../Components/Reviews/Reviews";
 import img from "../../assets/image/page.jpg";
 import PaymentForm from "../Payment/PaymentForm";
 
+// export const loader = useLoaderData();
+
 const Details = () => {
   const loader = useLoaderData();
 
-  const totalAmount =
-    loader.Tuition_fees + loader.Application_fees + loader.Service_charge;
+  // const totalAmount =
+  //   loader.Application_fees + loader.Tuition_fees + loader.Service_charge;
 
-  console.log("total amoutn : ", totalAmount);
+  // console.log("total amoutn : ", totalAmount);
 
   const {
     Scholarship_Name,
@@ -150,7 +152,8 @@ const Details = () => {
 
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <PaymentForm totalPrice={totalPrice }  Scholarship_Name ={Scholarship_Name}></PaymentForm>
+          <PaymentForm loader={loader}></PaymentForm>
+
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
@@ -165,10 +168,4 @@ const Details = () => {
   );
 };
 
-// export let totalAmount;
-// exports {Details , totalAmount};
-// export  totalAmount;
 export default Details;
-
-// export default Details
-// export { Details, totalAmount };

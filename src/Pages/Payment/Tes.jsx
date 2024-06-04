@@ -84,7 +84,7 @@ const Tes = ({ totalPrice, Scholarship_Name }) => {
         const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res.data);
 
-        if (res.data?.insertedId) {
+        if (res.data.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",

@@ -5,7 +5,6 @@ import SignIn from "../Pages/Sign in/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AllScholarship from "../Pages/AllScholarship/AllScholarship";
 import Details from "../Pages/Details/Details";
-import PaymentForm from "../Pages/Payment/PaymentForm";
 import ErrorPage from "../Pages/Errorpage/ErrorPage";
 import Dashbord from "../LayOut/Dashbord";
 
@@ -29,10 +28,6 @@ export const router = createBrowserRouter([
         element: <Details></Details>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/scholarship/${params.id}`),
-      },
-      {
-        path: "/payment",
-        element: <PaymentForm></PaymentForm>,
       },
       {
         path: "/signin",

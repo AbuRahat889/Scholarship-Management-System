@@ -1,129 +1,118 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import "../Payment/Checkout.css";
-import { ImSpinner9 } from "react-icons/im";
 import { useContext, useEffect, useState } from "react";
-
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "./../../Hooks/useAxiosSequre";
-import AuthProvaider from "../../Contex/AuthProvaider";
+import { AuthContext } from "../../Contex/AuthProvaider";
+import Swal from "sweetalert2";
+import { GoDotFill } from "react-icons/go";
 
-const CheckoutForm = ({ totalAmount }) => {
+const CheckoutForm = ({ loader }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const { user } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [transactionId, setTransactionId] = useState("");
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
-  const { user } = useContext(AuthProvaider);
-  const [clientSecret, setClientSecret] = useState();
-  const [cardError, setCardError] = useState("");
-  const [processing, setProcessing] = useState(false);
-
+  const [clientSecret, setClientSecret] = useState("");
   const totalPrice =
-    totalAmount.Tuition_fees +
-    totalAmount.Application_fees +
-    totalAmount.Service_charge;
+    loader.Application_fees + loader.Tuition_fees + loader.Service_charge;
 
   useEffect(() => {
-    // fetch client secret
-    if (totalPrice > 1) {
-      getClientSecret({ price: totalPrice });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPrice]);
+  }, [axiosSecure, totalPrice]);
 
-  //   get clientSecret
-  const getClientSecret = async (price) => {
-    const { data } = await axiosSecure.post(`/create-payment-intent`, price);
-    console.log("clientSecret from server--->", data);
-    setClientSecret(data.clientSecret);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const card = elements.getElement(CardElement);
+    if (card == null) {
+      return;
+    }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
+
+    if (error) {
+      console.log("error", error);
+      setError(error.message);
+    } else {
+      console.log("PaymentMethod", paymentMethod);
+      setError("");
+    }
+
+    // confirm payment
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "anonymous",
+            name: user?.displayName || "anonymous",
+          },
+        },
+      });
+    if (confirmError) {
+      console.log("confirm error");
+    } else {
+      console.log(paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        console.log("transaction id", paymentIntent.id);
+        setTransactionId(paymentIntent.id);
+
+        // now save the payment in the database
+        const payment = {
+          name: user.displayName,
+          email: user.email,
+          price: totalPrice,
+          transactionId: paymentIntent.id,
+          date: new Date(), // utc date convert. use moment js to
+          scholarshipName: loader.Scholarship_Name,
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", payment);
+        console.log("payment saved", res.data);
+
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Thank you for the taka paisa",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // navigate('/dashboard/paymentHistory')
+        }
+      }
+    }
   };
 
-  // const handleSubmit = async (event) => {
-  //   // Block native form submission.
-  //   event.preventDefault();
-  //   setProcessing(true);
-  //   if (!stripe || !elements) {
-  //     // Stripe.js has not loaded yet. Make sure to disable
-  //     // form submission until Stripe.js has loaded.
-  //     return;
-  //   }
-
-  //   // Get a reference to a mounted CardElement. Elements knows how
-  //   // to find your CardElement because there can only ever be one of
-  //   // each type of element.
-  //   const card = elements.getElement(CardElement);
-
-  //   if (card == null) {
-  //     return;
-  //   }
-
-  //   // Use your card Element with other Stripe.js APIs
-  //   const { error, paymentMethod } = await stripe.createPaymentMethod({
-  //     type: "card",
-  //     card,
-  //   });
-
-  //   if (error) {
-  //     console.log("[error]", error);
-  //     setCardError(error.message);
-  //     setProcessing(false);
-  //     return;
-  //   } else {
-  //     console.log("[PaymentMethod]", paymentMethod);
-  //     setCardError("");
-  //   }
-
-  //   // confirm payment
-  //   const { error: confirmError, paymentIntent } =
-  //     await stripe.confirmCardPayment(clientSecret, {
-  //       payment_method: {
-  //         card: card,
-  //         billing_details: {
-  //           email: user?.email,
-  //           name: user?.displayName,
-  //         },
-  //       },
-  //     });
-
-  //   if (confirmError) {
-  //     console.log(confirmError);
-  //     setCardError(confirmError.message);
-  //     setProcessing(false);
-  //     return;
-  //   }
-
-  //   if (paymentIntent.status === "succeeded") {
-  //     console.log(paymentIntent);
-  //     // 1. Create payment info object
-  //     const paymentInfo = {
-  //       ...totalAmount,
-  //       roomId: totalAmount._id,
-  //       transactionId: paymentIntent.id,
-  //       date: new Date(),
-  //     };
-  //     delete paymentInfo._id;
-  //     console.log(paymentInfo);
-  //     try {
-  //       // 2. save payment info in booking collection (db)
-  //       const { data } = await axiosSecure.post("/booking", paymentInfo);
-  //       console.log(data);
-
-  //       // update ui
-  //       // closeModal();
-  //       toast.success("Room Booked Successfully");
-  //       navigate("");
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-
-  //   setProcessing(false);
-  // };
-
   return (
-    <>
-      {" "}
-      <form onSubmit={handleSubmit}>
+    <div>
+      <div className="justify-between">
+        <h1 className="flex items-center gap-1">
+          <GoDotFill />
+          Scholarship Name : {loader.Scholarship_Name}
+        </h1>
+        <h1 className="flex items-center gap-1"><GoDotFill /> University : {loader.University_Name}</h1>
+        <h1 className="flex items-center gap-1"><GoDotFill /> total fee : ${totalPrice} </h1>
+      </div>
+      
+
+
+      <form onSubmit={handleSubmit} className="mt-3 bg-base-300 rounded-xl px-10 py-5">
         <CardElement
           options={{
             style: {
@@ -136,34 +125,23 @@ const CheckoutForm = ({ totalAmount }) => {
               },
               invalid: {
                 color: "#9e2146",
+                padding: "5px",
               },
             },
           }}
         />
-
-        <div className="flex mt-2 justify-around">
+        <p className="text-red-600">{error}</p>
+        <div className="flex mt-2 justify-start">
           <button
-            disabled={!stripe || !clientSecret || processing}
+            className="btn btn-sm btn-primary my-4"
             type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+            disabled={!stripe || !clientSecret}
           >
-            {processing ? (
-              <ImSpinner9 className="animate-spin m-auto" size={24} />
-            ) : (
-              `Pay ${totalPrice}`
-            )}
+            Pay
           </button>
-          {/* <button
-            onClick={closeModal}
-            type="button"
-            className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-          >
-            Cancel
-          </button> */}
         </div>
       </form>
-      {cardError && <p className="text-red-600 ml-8">{cardError}</p>}
-    </>
+    </div>
   );
 };
 
