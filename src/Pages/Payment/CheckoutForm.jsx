@@ -97,7 +97,7 @@ const CheckoutForm = ({ loader }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate("/applyscholarship");
+          
         }
       }
     }

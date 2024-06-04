@@ -10,6 +10,7 @@ import ApplyScholarship from "../Pages/ApplyScholarship/ApplyScholarship";
 import MyProfile from "../Pages/UserDashboard/UserProfile/MyProfile";
 import App from "../LayOut/App";
 import MyApplication from "../Pages/UserDashboard/MyApplication/MyApplication";
+import Update from './../Pages/UserDashboard/Update/Update';
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
           fetch(`http://localhost:5000/scholarship/${params.id}`),
       },
       {
+        path: "/applyscholarship",
+        element: <ApplyScholarship></ApplyScholarship>,
+      },
+      {
         path: "/signin",
         element: <SignIn></SignIn>,
       },
@@ -53,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashbord/myapplication",
         element: <MyApplication></MyApplication>,
+      },
+      {
+        path: "/dashbord/update",
+        element: <Update></Update>,
       },
     ],
   },

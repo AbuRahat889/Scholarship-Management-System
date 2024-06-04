@@ -1,16 +1,14 @@
-import { useContext } from "react";
-import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../Contex/AuthProvaider";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import useAxiosSecure from "../../Hooks/useAxiosSequre";
 import Swal from "sweetalert2";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../Hooks/useAxiosSequre";
 
-
-const ApplyScholarship = ({ loader }) => {
+const Update = ({ application }) => {
+    console.log('this slkjfdlkasjlfdkjl ', application);
   const { register, handleSubmit, reset } = useForm();
-  const { user } = useContext(AuthContext);
+
   const axiosPublic = useAxiosPublic();
   const axiosSequre = useAxiosSecure();
   const navigate = useNavigate();
@@ -18,61 +16,50 @@ const ApplyScholarship = ({ loader }) => {
   const image_hosting_key = import.meta.env.VITE_IMAGE_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-  const onSubmit = async (event) => {
-    const imageFile = { image: event.image[0] };
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: { "content-type": "multipart/form-data" },
-    });
+  //   const onSubmit = async (event) => {
+  //     const imageFile = { image: event.image[0] };
+  //     const res = await axiosPublic.post(image_hosting_api, imageFile, {
+  //       headers: { "content-type": "multipart/form-data" },
+  //     });
 
-    //send application information in database
-    if (res.data.success) {
-      const applicationInfo = {
-        Scholarship_id: loader._id,
-        Applicant_name: user.displayName,
-        Applicant_email: user.email,
-        date: new Date(),
-        University_Name: event.universityname,
-        Subject_Category: event.category,
-        Scholarship_category: event.scholarship,
-        Degree: event.degree,
-        gender: event.gender,
-        phone_number: event.phone,
-        SSC_result: parseFloat(event.ssc),
-        HSC_result: parseFloat(event.hsc),
-        image: res.data.data.display_url,
-        Status: "pending",
-      };
-      console.log(applicationInfo); //application
-      const applyItem = await axiosSequre.post("/application", applicationInfo);
-      console.log(applyItem.data);
-      if (applyItem.data.insertedId) {
-        reset();
-        navigate("/dashbord/myapplication");
-        Swal.fire({
-          title: "Good job!",
-          text: "You application has been done!!",
-          icon: "success",
-        });
-      }
-    }
-  };
+  //     //send application information in database
+  //     if (res.data.success) {
+  //       const applicationInfo = {
+  //         date: new Date(),
+  //         Degree: event.degree,
+  //         gender: event.gender,
+  //         phone_number: event.phone,
+  //         SSC_result: parseFloat(event.ssc),
+  //         HSC_result: parseFloat(event.hsc),
+  //         image: res.data.data.display_url,
+  //       };
+  //       console.log(applicationInfo); //application
+  //       const applyItem = await axiosSequre.post("/application", applicationInfo);
+  //       console.log(applyItem.data);
+  //       if (applyItem.data.insertedId) {
+  //         reset();
+  //         navigate("/dashbord/myapplication");
+  //         Swal.fire({
+  //           title: "Good job!",
+  //           text: "You application has been done!!",
+  //           icon: "success",
+  //         });
+  //       }
+  //     }
+  //   };
 
   return (
     <div>
-      
       <div className="container mx-auto ">
-        <SectionTitle
-          subtitle={"Apply Online"}
-          titel={"Apply Scholarship"}
-        ></SectionTitle>
-
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          //   onSubmit={handleSubmit(onSubmit)}
           className="mx-16 mt-10 p-16 bg-base-200"
         >
+          <h1 className="text-3xl text-center font-semibold">
+            Update Application Information
+          </h1>
           {/* row 01********************* */}
           <div className="flex gap-6 my-6">
-            {/* category */}
             <label className="form-control w-full">
               <div className="label">
                 <span className="label-text font-semibold">
@@ -81,7 +68,7 @@ const ApplyScholarship = ({ loader }) => {
               </div>
               <input
                 {...register("universityname")}
-                value={loader.University_Name}
+                value={application.University_Name}
                 readOnly
                 type="text"
                 placeholder="University name"
@@ -98,7 +85,7 @@ const ApplyScholarship = ({ loader }) => {
               <input
                 {...register("scholarship")}
                 readOnly
-                value={loader.Scholarship_category}
+                value={application.Scholarship_category}
                 type="text"
                 placeholder="Scholarship category"
                 className="input input-bordered w-full "
@@ -107,7 +94,6 @@ const ApplyScholarship = ({ loader }) => {
           </div>
           {/* row 02********************* */}
           <div className="flex gap-6 my-6">
-            {/* category */}
             <label className="form-control w-full">
               <div className="label">
                 <span className="label-text font-semibold">
@@ -118,7 +104,7 @@ const ApplyScholarship = ({ loader }) => {
                 defaultValue="default"
                 {...register("category")}
                 readOnly
-                value={loader.Subject_category}
+                value={application.Subject_category}
                 className="select select-bordered"
               >
                 <option disabled value={"default"}>
@@ -151,7 +137,6 @@ const ApplyScholarship = ({ loader }) => {
 
           {/* row 03********************* */}
           <div className="flex gap-6 my-6">
-            {/* category */}
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text font-semibold">Phone*</span>
@@ -183,7 +168,6 @@ const ApplyScholarship = ({ loader }) => {
 
           {/* row 04********************* */}
           <div className="flex gap-6 my-6">
-            {/* category */}
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text font-semibold">SSC result*</span>
@@ -208,7 +192,6 @@ const ApplyScholarship = ({ loader }) => {
             </label>
           </div>
 
-          {/* upload photo */}
           <div className="label">
             <span className="label-text font-semibold">Upload photo</span>
           </div>
@@ -229,4 +212,4 @@ const ApplyScholarship = ({ loader }) => {
   );
 };
 
-export default ApplyScholarship;
+export default Update;
