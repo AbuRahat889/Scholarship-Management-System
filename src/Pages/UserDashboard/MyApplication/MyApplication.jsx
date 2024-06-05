@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Contex/AuthProvaider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import AddReviews from "../Reviews/AddReviews";
 
 const MyApplication = () => {
   const { user } = useContext(AuthContext);
@@ -72,6 +73,7 @@ const MyApplication = () => {
               <th>Scholarship_category</th>
               <th>Status</th>
               <th>Action</th>
+              <th>Reviwe</th>
             </tr>
           </thead>
           <tbody>
@@ -96,7 +98,9 @@ const MyApplication = () => {
                     <li className="tooltip" data-tip="edit">
                       {item.Status == "pending" ? (
                         <Link to={`/dashbord/update/${item._id}`}>
-                          <FaEdit />
+                          <button>
+                            <FaEdit />
+                          </button>
                         </Link>
                       ) : (
                         Swal.fire({
@@ -114,6 +118,11 @@ const MyApplication = () => {
                     </li>
                   </ul>
                 </td>
+                <td>
+                  <Link to={`/dashbord/review/${item._id}`}
+                  // onClick={() => document.getElementById("my_modal_4").showModal()}
+                   className="btn btn-outline">add review</Link>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -121,7 +130,7 @@ const MyApplication = () => {
       </div>
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      {/* <button
+      <button
         className="btn"
         // onClick={() => document.getElementById("my_modal_4").showModal()}
       >
@@ -129,16 +138,16 @@ const MyApplication = () => {
       </button>
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
-          <Update application={application}></Update>
-          
+          <AddReviews></AddReviews>
+
           <div className="modal-action">
             <form method="dialog">
-             
+              {/* if there is a button, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
         </div>
-      </dialog> */}
+      </dialog>
     </div>
   );
 };

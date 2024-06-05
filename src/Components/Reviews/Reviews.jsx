@@ -20,6 +20,9 @@ const Reviews = () => {
     },
   });
   //   const {
+
+  // Reviewer_image;
+
   //     Rating_point,
   //     Review_comment,
   //     Review_date,
@@ -43,10 +46,15 @@ const Reviews = () => {
               <div>
                 <div className="avatar items-center">
                   <div className="w-12 rounded-full mr-2">
-                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    {item.Reviewer_image ? (
+                      <img src={item.Reviewer_image} alt="" />
+                    ) : (
+                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    )}
+                    <img src={item.Reviewer_image} />
                   </div>
                   <h1 className="text-xl font-semibold">
-                    {item.Reviewer_name} <br />
+                    {item?.Reviewer_name} <br />
                     <span className="text-lg">{item.University_name}</span>
                   </h1>
                 </div>

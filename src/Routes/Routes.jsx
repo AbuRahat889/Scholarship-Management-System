@@ -11,6 +11,7 @@ import MyProfile from "../Pages/UserDashboard/UserProfile/MyProfile";
 import App from "../LayOut/App";
 import MyApplication from "../Pages/UserDashboard/MyApplication/MyApplication";
 import Update from './../Pages/UserDashboard/Update/Update';
+import AddReviews from "../Pages/UserDashboard/Reviews/AddReviews";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -62,6 +63,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashbord/update/:id",
         element: <Update></Update>,
+        loader:({params}) => fetch(`http://localhost:5000/applications/${params.id}`)
+      },
+      {
+        path: "/dashbord/review/:id",
+        element: <AddReviews></AddReviews>,
         loader:({params}) => fetch(`http://localhost:5000/applications/${params.id}`)
       },
     ],

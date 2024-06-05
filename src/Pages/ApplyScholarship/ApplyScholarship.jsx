@@ -5,8 +5,7 @@ import { AuthContext } from "../../Contex/AuthProvaider";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSequre";
 import Swal from "sweetalert2";
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const ApplyScholarship = ({ loader }) => {
   const { register, handleSubmit, reset } = useForm();
@@ -42,9 +41,10 @@ const ApplyScholarship = ({ loader }) => {
         image: res.data.data.display_url,
         Status: "pending",
       };
-      console.log(applicationInfo); //application
+
       const applyItem = await axiosSequre.post("/application", applicationInfo);
       console.log(applyItem.data);
+      
       if (applyItem.data.insertedId) {
         reset();
         navigate("/dashbord/myapplication");
@@ -59,7 +59,6 @@ const ApplyScholarship = ({ loader }) => {
 
   return (
     <div>
-      
       <div className="container mx-auto ">
         <SectionTitle
           subtitle={"Apply Online"}
