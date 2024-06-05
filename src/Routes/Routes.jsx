@@ -60,8 +60,9 @@ export const router = createBrowserRouter([
         element: <MyApplication></MyApplication>,
       },
       {
-        path: "/dashbord/update",
+        path: "/dashbord/update/:id",
         element: <Update></Update>,
+        loader:({params}) => fetch(`http://localhost:5000/applications/${params.id}`)
       },
     ],
   },

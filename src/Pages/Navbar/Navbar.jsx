@@ -15,7 +15,6 @@ const Navbar = () => {
       <NavLink to={"/"}>Home</NavLink>
       <NavLink to={"/allScholarShip"}>All Scholarship</NavLink>
       <NavLink to={"/dashbord/userprofile"}>Dashboard</NavLink>
-      <NavLink to={"/dashbord/update"}>Update</NavLink>
     </div>
   );
   return (

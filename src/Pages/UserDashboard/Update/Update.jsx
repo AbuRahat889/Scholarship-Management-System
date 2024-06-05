@@ -1,58 +1,61 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSequre";
 
-const Update = ({ application }) => {
-    console.log('this slkjfdlkasjlfdkjl ', application);
+const Update = () => {
+  const application = useLoaderData();
   const { register, handleSubmit, reset } = useForm();
-
   const axiosPublic = useAxiosPublic();
   const axiosSequre = useAxiosSecure();
   const navigate = useNavigate();
 
+  //hosting img in imageBB
   const image_hosting_key = import.meta.env.VITE_IMAGE_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-  //   const onSubmit = async (event) => {
-  //     const imageFile = { image: event.image[0] };
-  //     const res = await axiosPublic.post(image_hosting_api, imageFile, {
-  //       headers: { "content-type": "multipart/form-data" },
-  //     });
+  const onSubmit = async (event) => {
+    //uploading image
+    const imageFile = { image: event.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: { "content-type": "multipart/form-data" },
+    });
 
-  //     //send application information in database
-  //     if (res.data.success) {
-  //       const applicationInfo = {
-  //         date: new Date(),
-  //         Degree: event.degree,
-  //         gender: event.gender,
-  //         phone_number: event.phone,
-  //         SSC_result: parseFloat(event.ssc),
-  //         HSC_result: parseFloat(event.hsc),
-  //         image: res.data.data.display_url,
-  //       };
-  //       console.log(applicationInfo); //application
-  //       const applyItem = await axiosSequre.post("/application", applicationInfo);
-  //       console.log(applyItem.data);
-  //       if (applyItem.data.insertedId) {
-  //         reset();
-  //         navigate("/dashbord/myapplication");
-  //         Swal.fire({
-  //           title: "Good job!",
-  //           text: "You application has been done!!",
-  //           icon: "success",
-  //         });
-  //       }
-  //     }
-  //   };
+    //update application information in database
+    if (res.data.success) {
+      const applicationInfo = {
+        date: new Date(),
+        Degree: event.degree,
+        gender: event.gender,
+        phone_number: event.phone,
+        SSC_result: parseFloat(event.ssc),
+        HSC_result: parseFloat(event.hsc),
+        image: res.data.data.display_url,
+      };
+
+      const updateItem = await axiosSequre.put(
+        `/applications/${application._id}`,
+        applicationInfo
+      );
+
+      if (updateItem.data.modifiedCount) {
+        reset();
+        navigate("/dashbord/myapplication");
+        Swal.fire({
+          title: "Good job!",
+          text: "You application has been Updated!!",
+          icon: "success",
+        });
+      }
+    }
+  };
 
   return (
     <div>
       <div className="container mx-auto ">
         <form
-          //   onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="mx-16 mt-10 p-16 bg-base-200"
         >
           <h1 className="text-3xl text-center font-semibold">
@@ -104,7 +107,7 @@ const Update = ({ application }) => {
                 defaultValue="default"
                 {...register("category")}
                 readOnly
-                value={application.Subject_category}
+                value={application.Subject_Category}
                 className="select select-bordered"
               >
                 <option disabled value={"default"}>
@@ -121,8 +124,8 @@ const Update = ({ application }) => {
                 <span className="label-text font-semibold">Degree*</span>
               </div>
               <select
-                defaultValue="default"
                 {...register("degree")}
+                defaultValue={application.Degree}
                 className="select select-bordered"
               >
                 <option disabled value={"default"}>
@@ -143,6 +146,7 @@ const Update = ({ application }) => {
               </div>
               <input
                 {...register("phone")}
+                defaultValue={application.phone_number}
                 type="number"
                 placeholder="Phone number"
                 className="input input-bordered w-full "
@@ -153,8 +157,8 @@ const Update = ({ application }) => {
                 <span className="label-text font-semibold">Gender*</span>
               </div>
               <select
-                defaultValue="default"
                 {...register("gender")}
+                defaultValue={application.gender}
                 className="select select-bordered"
               >
                 <option disabled value={"default"}>
@@ -174,8 +178,9 @@ const Update = ({ application }) => {
               </div>
               <input
                 {...register("ssc")}
+                defaultValue={application.SSC_result}
                 type="text"
-                placeholder="Phone number"
+                placeholder="ssc result"
                 className="input input-bordered w-full "
               />
             </label>
@@ -185,6 +190,7 @@ const Update = ({ application }) => {
               </div>
               <input
                 {...register("hsc")}
+                defaultValue={application.HSC_result}
                 type="text"
                 placeholder="Phone number"
                 className="input input-bordered w-full "

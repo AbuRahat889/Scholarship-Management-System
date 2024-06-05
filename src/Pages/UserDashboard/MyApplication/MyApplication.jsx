@@ -5,16 +5,19 @@ import useAxiosSecure from "../../../Hooks/useAxiosSequre";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../../Contex/AuthProvaider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Update from "../Update/Update";
 
 const MyApplication = () => {
   const { user } = useContext(AuthContext);
   const axiosSequre = useAxiosSecure();
   const navigate = useNavigate();
 
-  const { refetch, data: application = [] } = useQuery({
+  const {
+    refetch,
+    isPending,
+    data: application = [],
+  } = useQuery({
     queryKey: ["application", user?.email],
     queryFn: async () => {
       const res = await axiosSequre.get(`/application?email=${user.email}`);
@@ -25,13 +28,6 @@ const MyApplication = () => {
   //handle Details page
   const handleDetails = (id) => {
     navigate(`/details/${id}`);
-  };
-
-  //handleEdit
-  const handleEdit = (id) => {
-    console.log("handleEdit ", id);
-    document.getElementById("my_modal_4").showModal();
-  
   };
 
   //handle delete application
@@ -59,6 +55,7 @@ const MyApplication = () => {
       }
     });
   };
+  if (isPending) return "Loading...";
 
   return (
     <div className="container mx-auto">
@@ -98,9 +95,9 @@ const MyApplication = () => {
                     </li>
                     <li className="tooltip" data-tip="edit">
                       {item.Status == "pending" ? (
-                        <button onClick={() => handleEdit(item._id)}>
+                        <Link to={`/dashbord/update/${item._id}`}>
                           <FaEdit />
-                        </button>
+                        </Link>
                       ) : (
                         Swal.fire({
                           icon: "error",
@@ -124,7 +121,7 @@ const MyApplication = () => {
       </div>
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      <button
+      {/* <button
         className="btn"
         // onClick={() => document.getElementById("my_modal_4").showModal()}
       >
@@ -136,12 +133,12 @@ const MyApplication = () => {
           
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button, it will close the modal */}
+             
               <button className="btn">Close</button>
             </form>
           </div>
         </div>
-      </dialog>
+      </dialog> */}
     </div>
   );
 };
