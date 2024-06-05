@@ -16,7 +16,7 @@ const AddReviews = () => {
   const { user } = useContext(AuthContext);
   const axiosSequre = useAxiosSecure();
 
-  console.log("tis is loader info : ", loader);
+  console.log("this is loader info : ", loader);
 
   const onSubmit = async (event) => {
     const reviewInfo = {
@@ -31,6 +31,8 @@ const AddReviews = () => {
       Review_comment: event.comment,
       Review_date: startDate,
     };
+    console.table(reviewInfo);
+
     const res = await axiosSequre.post(`/review`, reviewInfo);
     console.log(res.data);
     if (res.data.insertedId) {
@@ -44,7 +46,6 @@ const AddReviews = () => {
     }
   };
 
-  
   return (
     <div>
       {/*   Rating_point

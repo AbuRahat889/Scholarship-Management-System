@@ -14,6 +14,9 @@ import Update from "./../Pages/UserDashboard/Update/Update";
 import AddReviews from "../Pages/UserDashboard/Reviews/AddReviews";
 import MyReviews from "../Pages/UserDashboard/MyReviews.jsx/MyReviews";
 import EditReview from "../Pages/UserDashboard/MyReviews.jsx/EditReview";
+import PrivateRoute from "./PrivateRoute";
+import ManageUsers from "../Pages/AdminDashboard/ManageUsers/ManageUsers";
+import AddScholarship from "../Pages/AdminDashboard/AddScholarship/AddScholarship";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -32,7 +35,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <Details></Details>,
+        element: <PrivateRoute><Details></Details></PrivateRoute>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/scholarship/${params.id}`),
       },
@@ -52,8 +55,9 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashbord",
-    element: <Dashbord></Dashbord>,
+    element: <PrivateRoute><Dashbord></Dashbord></PrivateRoute>,
     children: [
+      //user dashboard
       {
         path: "/dashbord/userprofile",
         element: <MyProfile></MyProfile>,
@@ -84,6 +88,15 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/reviews/${params.id}`),
       },
+      //admin dashboard
+      {
+        path:'/dashbord/manageusers',
+        element:<ManageUsers></ManageUsers>
+      },
+      {
+        path:'/dashbord/addscholarship',
+        element:<AddScholarship></AddScholarship>
+      }
     ],
   },
 ]);

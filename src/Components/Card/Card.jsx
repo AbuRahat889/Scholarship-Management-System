@@ -5,6 +5,10 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Link } from "react-router-dom";
 
+
+// University_image
+//         University_Logo
+
 const Card = ({ item }) => {
   const {
     _id,
@@ -23,12 +27,12 @@ const Card = ({ item }) => {
     <div>
       <div className="card  shadow-xl bg-white">
         <figure className="px-3 pt-3">
-          <img src={img} alt="University" className="rounded-t-xl" />
+          <img src={University_image} alt="University" className="rounded-t-xl" />
         </figure>
 
         <div className="card-body r ">
           <div className="flex items-center gap-2">
-            <img className="size-12 rounded-lg p-1" src={logo} alt="" />
+            <img className="size-12 rounded-lg p-1" src={University_Logo} alt="" />
             <p>{University_Name}</p>
           </div>
           <h2 className="card-title">{Scholarship_Name}</h2>

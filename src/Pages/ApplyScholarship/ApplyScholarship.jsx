@@ -42,6 +42,7 @@ const ApplyScholarship = ({ loader }) => {
         image: res.data.data.display_url,
         Status: "pending",
       };
+      console.table(applicationInfo)
 
       const applyItem = await axiosSequre.post("/application", applicationInfo);
       console.log(applyItem.data);

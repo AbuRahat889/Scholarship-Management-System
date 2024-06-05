@@ -29,7 +29,7 @@ const MyReviews = () => {
     console.log(id);
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You won't be able to delete this review!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -80,7 +80,7 @@ const MyReviews = () => {
             {reviews.map((item, index) => (
               <tr key={item._id} className="bg-base-200">
                 <th>{index + 1}</th>
-                <td>{item.Scholarship_Name}</td>
+                <td>{item.Scholarship_name}</td>
                 <td>{item.University_name}</td>
                 <td>{item.Review_date}</td>
                 <td>{item.Review_comment}</td>

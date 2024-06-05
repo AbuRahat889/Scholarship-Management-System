@@ -11,7 +11,7 @@ import { VscPreview } from "react-icons/vsc";
 
 const Dashbord = () => {
   //TODO : get isadmin value form database
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -30,7 +30,10 @@ const Dashbord = () => {
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <IoSchoolSharp />
-                  <NavLink to={"/dashbord/addItems"}> Add Scholarship</NavLink>
+                  <NavLink to={"/dashbord/addscholarship"}>
+                    {" "}
+                    Add Scholarship
+                  </NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaList />
@@ -49,7 +52,7 @@ const Dashbord = () => {
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaUsers />
-                  <NavLink to={"/dashbord/allusers"}>Manage Users</NavLink>
+                  <NavLink to={"/dashbord/manageusers"}>Manage Users</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <MdOutlineCastForEducation />

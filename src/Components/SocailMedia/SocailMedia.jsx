@@ -3,39 +3,34 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import auth from "../../Firebase/Firebase.config";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SocailMedia = () => {
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const from = location.state?.from?.pathname || "/";
 
   //sign in with Google
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
-        Swal.fire({
-          title: "Good job!",
-          text: "Sign in Successfully!",
-          icon: "success",
-        });
-        navigate(from, { replace: true });
-
         //update user info in db
-        // const userInfo = {
-        //   name: result.user.displayName,
-        //   email: result.user.email,
-        // };
-        // axiosPublic.post(`/users`, userInfo).then((res) => {
-        //   console.log(res);
+        const userInfo = {
+          name: result.user.displayName,
+          email: result.user.email,
+          image: result.user.photoURL,
+        };
+        axiosPublic.post(`/users`, userInfo).then((res) => {
+          console.log(res);
 
-        //   Swal.fire({
-        //     title: "Good job!",
-        //     text: "Sign in Successfully!",
-        //     icon: "success",
-        //   });
-        //   navigate(from, { replace: true });
-        // });
+          Swal.fire({
+            title: "Good job!",
+            text: "Sign in Successfully!",
+            icon: "success",
+          });
+          navigate(from, { replace: true });
+        });
       })
       .catch((error) => {
         const errorMessage = error.message;

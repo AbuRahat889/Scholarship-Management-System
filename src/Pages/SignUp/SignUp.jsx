@@ -5,12 +5,14 @@ import img from "../../assets/image/authentication/authentication2.png";
 import { AuthContext } from "../../Contex/AuthProvaider";
 import SocailMedia from "../../Components/SocailMedia/SocailMedia";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
   const [error, setError] = useState();
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
   const from = location.state?.from?.pathname || "/";
 
   //sign up email and password
@@ -29,7 +31,7 @@ const SignUp = () => {
 
     if (password.length < 6 || password.length > 13) {
       return setError("Password must be between 6 and 13 characters.");
-  }
+    }
     if (!hasUpperCase.test(password)) {
       return setError("Password must contain at least one uppercase letter.");
     }
@@ -47,15 +49,22 @@ const SignUp = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        navigate("/");
-        Swal.fire({
-          title: "Good job!",
-          text: "You Sign In Successfully!!",
-          icon: "success",
-        });
 
         //store user info in database
+        const userInfo = {
+          name,
+          email,
+        };
+        axiosPublic.post(`/users`, userInfo).then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "Good job!",
+              text: "You signUp Successfully!",
+              icon: "success",
+            });
+            navigate("/");
+          }
+        });
       })
       .catch((error) => {
         Swal.fire({
