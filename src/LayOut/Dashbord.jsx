@@ -71,7 +71,7 @@ const Dashbord = () => {
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <VscPreview />
-                  <NavLink to={"/userHome"}>My reviews</NavLink>
+                  <NavLink to={"/dashbord/myreviews"}>My reviews</NavLink>
                 </li>
               </>
             )}

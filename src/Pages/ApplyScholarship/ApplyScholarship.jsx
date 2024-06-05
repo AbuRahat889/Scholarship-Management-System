@@ -33,6 +33,7 @@ const ApplyScholarship = ({ loader }) => {
         University_Name: event.universityname,
         Subject_Category: event.category,
         Scholarship_category: event.scholarship,
+        Scholarship_Name: loader.Scholarship_Name,
         Degree: event.degree,
         gender: event.gender,
         phone_number: event.phone,
@@ -44,7 +45,7 @@ const ApplyScholarship = ({ loader }) => {
 
       const applyItem = await axiosSequre.post("/application", applicationInfo);
       console.log(applyItem.data);
-      
+
       if (applyItem.data.insertedId) {
         reset();
         navigate("/dashbord/myapplication");
