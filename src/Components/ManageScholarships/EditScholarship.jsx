@@ -1,17 +1,19 @@
 import { useForm } from "react-hook-form";
-import useAxiosSecure from "../../../Hooks/useAxiosSequre";
-import { useNavigate } from "react-router-dom";
+
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../Hooks/useAxiosSequre";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
-const AddScholarship = () => {
+const EditScholarship = () => {
   const { register, handleSubmit, reset } = useForm();
   const [startDate, setStartDate] = useState(new Date());
   const axiosSequre = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const loader = useLoaderData();
 
   //hosting img in imageBB
   const image_hosting_key = import.meta.env.VITE_IMAGE_KEY;
@@ -46,8 +48,8 @@ const AddScholarship = () => {
       };
       // EditScholarship
 
-      const AddScholarship = await axiosSequre.post(
-        `/scholarship`,
+      const AddScholarship = await axiosSequre.put(
+        `/scholarship/${loader._id}`,
         applicationInfo
       );
 
@@ -71,7 +73,7 @@ const AddScholarship = () => {
           className="mx-16 mt-10 p-16 bg-base-200"
         >
           <h1 className="text-3xl text-center font-semibold">
-            Add Scholarship
+            Edit Scholarship Information
           </h1>
           {/* row 00********************* */}
           <div className="flex gap-6 my-6">
@@ -81,6 +83,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("subject")}
+                defaultValue={loader.Subject_name}
                 type="text"
                 placeholder="Subject name"
                 className="input input-bordered w-full "
@@ -109,6 +112,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("Scholarship_Name")}
+                defaultValue={loader.Scholarship_Name}
                 type="text"
                 placeholder="Scholarship Name"
                 className="input input-bordered w-full "
@@ -123,6 +127,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("University_Name")}
+                defaultValue={loader.University_Name}
                 type="text"
                 placeholder="University Name"
                 className="input input-bordered w-full "
@@ -140,6 +145,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("country")}
+                defaultValue={loader.University_Country}
                 type="text"
                 placeholder="University Country"
                 className="input input-bordered w-full "
@@ -154,6 +160,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("University_city")}
+                defaultValue={loader.University_city}
                 type="text"
                 placeholder=" University city"
                 className="input input-bordered w-full "
@@ -171,6 +178,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("rank")}
+                defaultValue={loader.University_World_rank}
                 type="number"
                 placeholder="University World rank"
                 className="input input-bordered w-full "
@@ -183,6 +191,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("Tuition_fees")}
+                defaultValue={loader.Tuition_fees}
                 type="number"
                 placeholder="Tuition fees"
                 className="input input-bordered w-full "
@@ -199,8 +208,8 @@ const AddScholarship = () => {
                 </span>
               </div>
               <select
-                defaultValue="default"
                 {...register("category")}
+                defaultValue={loader.Subject_category}
                 className="select select-bordered"
               >
                 <option disabled value={"default"}>
@@ -218,11 +227,10 @@ const AddScholarship = () => {
               </div>
               <select
                 {...register("degree")}
+                defaultValue={loader.Degree}
                 className="select select-bordered"
               >
-                <option disabled value={"default"}>
-                  Degree
-                </option>
+                <option disabled>Degree</option>
                 <option value="Bachelor">Bachelor</option>
                 <option value="masters">masters</option>
                 <option value="Diploma">Diploma</option>
@@ -240,11 +248,10 @@ const AddScholarship = () => {
               </div>
               <select
                 {...register("Scholarship_category")}
+                defaultValue={loader.Scholarship_category}
                 className="select select-bordered"
               >
-                <option disabled value={"default"}>
-                  Catagory
-                </option>
+                <option disabled>Catagory</option>
                 <option value="Full fund">Full fund</option>
                 <option value="Partial">Partial</option>
                 <option value="Self-fund">Self-fund</option>
@@ -258,6 +265,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("Application_fees")}
+                defaultValue={loader.Application_fees}
                 type="number"
                 placeholder="Application fees"
                 className="input input-bordered w-full "
@@ -275,6 +283,7 @@ const AddScholarship = () => {
               </div>
               <input
                 {...register("charge")}
+                defaultValue={loader.Service_charge}
                 type="number"
                 placeholder="Service charge"
                 className="input input-bordered w-full "
@@ -325,7 +334,7 @@ const AddScholarship = () => {
 
           <div>
             <button className="btn bg-orange-400 font-semibold text-lg ">
-              Submit
+              Update
             </button>
           </div>
         </form>
@@ -334,4 +343,4 @@ const AddScholarship = () => {
   );
 };
 
-export default AddScholarship;
+export default EditScholarship;

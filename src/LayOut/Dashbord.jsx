@@ -37,7 +37,7 @@ const Dashbord = () => {
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaList />
-                  <NavLink to={"/dashbord/manageItems"}>
+                  <NavLink to={"/dashbord/managescholarship"}>
                     {" "}
                     Manage Scholarship
                   </NavLink>

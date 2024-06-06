@@ -13,7 +13,7 @@ const useAllScholarship = () => {
   });
 
   //   console.log(scholarship.length);
-  return scholarship;
+  return scholarship ;
 };
 
 export default useAllScholarship;

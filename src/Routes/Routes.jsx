@@ -18,6 +18,8 @@ import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../Pages/AdminDashboard/ManageUsers/ManageUsers";
 import AddScholarship from "../Pages/AdminDashboard/AddScholarship/AddScholarship";
 import ManageReview from "../Pages/AdminDashboard/ManageReview/ManageReview";
+import ManageScholarships from "../Pages/AdminDashboard/ManageScholarships/ManageScholarships";
+import EditScholarship from "../Components/ManageScholarships/EditScholarship";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -36,7 +38,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <PrivateRoute><Details></Details></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Details></Details>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/scholarship/${params.id}`),
       },
@@ -56,7 +62,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashbord",
-    element: <PrivateRoute><Dashbord></Dashbord></PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <Dashbord></Dashbord>
+      </PrivateRoute>
+    ),
     children: [
       //user dashboard
       {
@@ -91,17 +101,26 @@ export const router = createBrowserRouter([
       },
       //admin dashboard
       {
-        path:'/dashbord/manageusers',
-        element:<ManageUsers></ManageUsers>
+        path: "/dashbord/manageusers",
+        element: <ManageUsers></ManageUsers>,
       },
       {
-        path:'/dashbord/addscholarship',
-        element:<AddScholarship></AddScholarship>
+        path: "/dashbord/addscholarship",
+        element: <AddScholarship></AddScholarship>,
       },
       {
-        path:'/dashbord/managereview',
-        element:<ManageReview></ManageReview>
-      }
+        path: "/dashbord/managereview",
+        element: <ManageReview></ManageReview>,
+      },
+      {
+        path: "/dashbord/managescholarship",
+        element: <ManageScholarships></ManageScholarships>,
+      },
+      {
+        path: "/dashbord/editscholarship/:id",
+        element: <EditScholarship></EditScholarship>,
+        loader: ({params}) => fetch(`http://localhost:5000/scholarship/${params.id}`),
+      },
     ],
   },
 ]);
