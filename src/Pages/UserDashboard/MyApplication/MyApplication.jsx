@@ -7,7 +7,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Contex/AuthProvaider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import AddReviews from "../Reviews/AddReviews";
 
 const MyApplication = () => {
   const { user } = useContext(AuthContext);
@@ -56,6 +55,15 @@ const MyApplication = () => {
       }
     });
   };
+
+  const handleEdit = (Status) => {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: `You can not Edit application is ${Status}`,
+      footer: '<a href="#">Why do I have this issue?</a>',
+    });
+  };
   if (isPending) return "Loading...";
 
   return (
@@ -98,17 +106,12 @@ const MyApplication = () => {
                     <li className="tooltip" data-tip="edit">
                       {item.Status == "pending" ? (
                         <Link to={`/dashbord/update/${item._id}`}>
-                          <button>
-                            <FaEdit />
-                          </button>
+                          <FaEdit />
                         </Link>
                       ) : (
-                        Swal.fire({
-                          icon: "error",
-                          title: "Oops...",
-                          text: "You can not Edit application is processing",
-                          footer: '<a href="#">Why do I have this issue?</a>',
-                        })
+                        <Link onClick={() => handleEdit(item.Status)}>
+                          <FaEdit />
+                        </Link>
                       )}
                     </li>
                     <li className="tooltip" data-tip="delete">

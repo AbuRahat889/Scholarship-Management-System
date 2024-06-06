@@ -11,11 +11,11 @@ import { VscPreview } from "react-icons/vsc";
 
 const Dashbord = () => {
   //TODO : get isadmin value form database
-  const isAdmin = true;
+  const isAdmin = false;
 
   return (
     <div className="max-w-screen-xl mx-auto">
-      <div className="flex gap-10">
+      <div className="flex gap-6">
         <div className="w-64 min-h-screen bg-[#bbe8eb] p-6">
           <div className="cinzel mb-10">
             <a className=" text-xl font-black">EduScholarHub</a>

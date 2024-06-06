@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contex/AuthProvaider";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSequre";
@@ -15,6 +15,7 @@ const AddReviews = () => {
   const loader = useLoaderData();
   const { user } = useContext(AuthContext);
   const axiosSequre = useAxiosSecure();
+  const navigate = useNavigate();
 
   console.log("this is loader info : ", loader);
 
@@ -36,6 +37,7 @@ const AddReviews = () => {
     const res = await axiosSequre.post(`/review`, reviewInfo);
     console.log(res.data);
     if (res.data.insertedId) {
+      navigate("/dashbord/myreviews");
       Swal.fire({
         position: "top-end",
         icon: "success",

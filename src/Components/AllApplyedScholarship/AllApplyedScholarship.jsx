@@ -2,14 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSequre";
 import { TbListDetails } from "react-icons/tb";
 import { MdDelete, MdFeedback } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import FeedBack from "./ApplicationDetails";
 // import useScholarship from "../../Hooks/useScholarship";
 
 const AllApplyedScholarship = () => {
   const axiosSequre = useAxiosSecure();
-  const navigate = useNavigate();
 
   const { refetch, data: applications = [] } = useQuery({
     queryKey: ["applications"],
@@ -44,10 +42,56 @@ const AllApplyedScholarship = () => {
       }
     });
   };
+  const loadPatch = (id) => {
+    axiosSequre
+      .patch(`/application/${id}`)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "now status is change",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
+
+  //handle status of application
+  const statusProcess = (item) => {
+    console.log("click the: ", item);
+    loadPatch(item._id);
+  };
+  const statusComplete = (item) => {
+    console.log("click the: ", item);
+    axiosSequre
+      .patch(`/applicationc/${item._id}`)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "now status is change",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
       <div className="overflow-x-auto">
+        <h1>this is the header</h1>
         <table className="table table-zebra">
           {/* head */}
           <thead>
@@ -57,7 +101,7 @@ const AllApplyedScholarship = () => {
               <th>Scholarship Name</th>
               <th>Scholarship Category</th>
               <th>Subject Category</th>
-              <th>Applied Degree</th>
+
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -65,24 +109,45 @@ const AllApplyedScholarship = () => {
           <tbody>
             {/* row 1 */}
             {applications.map((item, index) => (
-              <tr key={item._id}>
+              <tr className="mb-10" key={item._id}>
                 <th>{index + 1}</th>
+                {/* <td>{item.Status}</td> */}
                 <td>{item.University_Name}</td>
                 <td>{item.Scholarship_Name}</td>
                 <td>{item.Scholarship_category}</td>
                 <td>{item.Subject_Category}</td>
-                <td>{item.Degree}</td>
+
                 <td>
-                  <select
+                  {/* <select
                     defaultValue="default"
                     className="select select-bordered"
                   >
                     <option disabled value={"default"}>
                       pending
                     </option>
-                    <option value="processing">processing</option>
+                    <option value="processing">
+                      <button onClick={() => handleStatus(item)}>
+                        processing
+                      </button>
+                    </option>
                     <option value="completed">completed</option>
-                  </select>
+                  </select> */}
+                  <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn m-1">
+                      {item.Status}
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li onClick={() => statusProcess(item)}>
+                        <a value="processing">processing</a>
+                      </li>
+                      <li onClick={() => statusComplete(item)}>
+                        <a>complete</a>
+                      </li>
+                    </ul>
+                  </div>
                 </td>
                 <td>
                   <ul className="flex items-center gap-1 text-xl">
@@ -109,6 +174,7 @@ const AllApplyedScholarship = () => {
                     </li>
                   </ul>
                 </td>
+
                 {/* use modal for applicatin details */}
                 <dialog id="my_modal_1" className="modal">
                   <div className="modal-box">

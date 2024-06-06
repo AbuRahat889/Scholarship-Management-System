@@ -42,7 +42,7 @@ const ApplyScholarship = ({ loader }) => {
         image: res.data.data.display_url,
         Status: "pending",
       };
-      console.table(applicationInfo)
+      console.table(applicationInfo);
 
       const applyItem = await axiosSequre.post("/application", applicationInfo);
       console.log(applyItem.data);
@@ -118,7 +118,6 @@ const ApplyScholarship = ({ loader }) => {
               <select
                 defaultValue="default"
                 {...register("category")}
-                readOnly
                 value={loader.Subject_category}
                 className="select select-bordered"
               >
