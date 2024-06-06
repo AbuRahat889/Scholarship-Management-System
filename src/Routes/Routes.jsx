@@ -17,6 +17,7 @@ import EditReview from "../Pages/UserDashboard/MyReviews.jsx/EditReview";
 import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../Pages/AdminDashboard/ManageUsers/ManageUsers";
 import AddScholarship from "../Pages/AdminDashboard/AddScholarship/AddScholarship";
+import ManageReview from "../Pages/AdminDashboard/ManageReview/ManageReview";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path:'/dashbord/addscholarship',
         element:<AddScholarship></AddScholarship>
+      },
+      {
+        path:'/dashbord/managereview',
+        element:<ManageReview></ManageReview>
       }
     ],
   },

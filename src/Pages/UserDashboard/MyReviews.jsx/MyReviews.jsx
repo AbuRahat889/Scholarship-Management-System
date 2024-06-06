@@ -51,15 +51,6 @@ const MyReviews = () => {
     });
   };
 
-  //   Rating_point
-  //   Review_comment
-  //   Review_date
-  //   Reviewer_email
-  //   Reviewer_image
-  //   Reviewer_name
-  //   Scholarship_name
-  //   University_name
-
   return (
     <div>
       <div className="overflow-x-auto">

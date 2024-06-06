@@ -56,7 +56,7 @@ const Dashbord = () => {
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <MdOutlineCastForEducation />
-                  <NavLink to={"/dashbord/allusers"}>Manage Review</NavLink>
+                  <NavLink to={"/dashbord/managereview"}>Manage Review</NavLink>
                 </li>
               </>
             ) : (

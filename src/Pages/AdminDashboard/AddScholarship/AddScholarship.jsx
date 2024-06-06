@@ -24,51 +24,6 @@ const AddScholarship = () => {
       headers: { "content-type": "multipart/form-data" },
     });
 
-    /**
-     * Scholarship Name ,
-        University_Name,
-
-    University_image, *****
-    University_image, *****
-
-    University Country,
-    University city,
-
-    University World rank,
-    Tuition fees,(optional),
-
-    Subject category,( Agriculture,Engineering,Doctor),
-    Scholarship category,  Full fund,Partial,Self-fund),
-    Degree ( Diploma,Bachelor,masters)
-    Application fees,
-
-    Service charge,
-    Application Deadline,
-
-    Scholarship post Date,
-
-    Posted User Email
-
-
-
-
-Scholarship_Name
-University_Name
-University_image
-University_Logo
-University_Country
-University_city
-University_World_rank
-Subject_category
-Scholarship_category
-Tuition_fees
-Application_fees
-Service_charge
-Application_Deadline
-Scholarship_post_Date
-
-     */
-
     //update application information in database
     if (res.data.success) {
       const applicationInfo = {
