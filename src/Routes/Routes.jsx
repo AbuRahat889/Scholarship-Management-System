@@ -20,6 +20,7 @@ import AddScholarship from "../Pages/AdminDashboard/AddScholarship/AddScholarshi
 import ManageReview from "../Pages/AdminDashboard/ManageReview/ManageReview";
 import ManageScholarships from "../Pages/AdminDashboard/ManageScholarships/ManageScholarships";
 import EditScholarship from "../Components/ManageScholarships/EditScholarship";
+import AppliedScholarship from "../Pages/AdminDashboard/AppliedScholarship/AppliedScholarship";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -121,6 +122,10 @@ export const router = createBrowserRouter([
         element: <EditScholarship></EditScholarship>,
         loader: ({params}) => fetch(`http://localhost:5000/scholarship/${params.id}`),
       },
+      {
+        path:'/dashbord/allAppliedScholarship',
+        element:<AppliedScholarship></AppliedScholarship>
+      }
     ],
   },
 ]);
