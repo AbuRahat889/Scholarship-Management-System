@@ -90,6 +90,7 @@ const CheckoutForm = ({ loader }) => {
         console.log("payment saved", res.data);
 
         if (res.data.insertedId) {
+          document.getElementById("my_modal_4").showModal();
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -142,7 +143,7 @@ const CheckoutForm = ({ loader }) => {
         <p className="text-red-600">{error}</p>
         <div className="flex mt-2 justify-start">
           <button
-            onClick={() => document.getElementById("my_modal_4").showModal()}
+            // onClick={() => document.getElementById("my_modal_4").showModal()}
             className="btn btn-sm btn-primary my-4"
             type="submit"
             disabled={!stripe || !clientSecret}
@@ -153,12 +154,6 @@ const CheckoutForm = ({ loader }) => {
       </form>
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      {/* <button
-        className="btn"
-        // onClick={() => document.getElementById("my_modal_4").showModal()}
-      >
-        open modal
-      </button> */}
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 max-w-5xl">
           <ApplyScholarship loader={loader}></ApplyScholarship>
