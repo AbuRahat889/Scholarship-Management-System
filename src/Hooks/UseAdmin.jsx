@@ -11,6 +11,7 @@ const UseAdmin = () => {
     queryKey: [user?.email, "isAdmin"],
     queryFn: async () => {
       const res = await axiosSequre.get(`/users/admin/${user.email}`);
+      console.log('test admin : : : ', res.data);
       return res.data?.admin;
     },
   });

@@ -1,11 +1,11 @@
 import Profile from "../../../Components/Profile/Profile";
 
-const MyProfile = () => {
+const AdminProfile = () => {
   return (
     <div>
-      <Profile role={"user"}></Profile>
+      <Profile role={"Admin"}></Profile>
     </div>
   );
 };
 
-export default MyProfile;
+export default AdminProfile;

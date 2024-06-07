@@ -8,6 +8,7 @@ import PaymentForm from "../Payment/PaymentForm";
 
 const Details = () => {
   const loader = useLoaderData();
+  console.log('loader', loader);
 
   const {
     Scholarship_Name,

@@ -3,17 +3,15 @@ import { NavLink, Outlet } from "react-router-dom";
 import { SlCalender } from "react-icons/sl";
 import { IoSchoolSharp } from "react-icons/io5";
 import { TfiMenu } from "react-icons/tfi";
-
-//   import "../LayOut/Dashbord.css";
 import { MdOutlineCastForEducation } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
 import UseAdmin from "../Hooks/UseAdmin";
-//   import UseAdmin from "../../Hooks/UseAdmin";
 
 const Dashbord = () => {
-  //TODO : get isadmin value form database
+  //  get isadmin value form database
   const [isAdmin] = UseAdmin();
   // const isAdmin = true;
+  // console.log('is admin is ' , isA);
 
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -24,11 +22,11 @@ const Dashbord = () => {
           </div>
 
           <ul>
-            {isAdmin ? (
+            {isAdmin && (
               <>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaHome></FaHome>
-                  <NavLink to={"/dashbord/adminHome"}>Admin Profile</NavLink>
+                  <NavLink to={"/dashbord/adminprofile"}>Admin Profile</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <IoSchoolSharp />
@@ -61,7 +59,9 @@ const Dashbord = () => {
                   <NavLink to={"/dashbord/managereview"}>Manage Review</NavLink>
                 </li>
               </>
-            ) : (
+            )}
+            {/* ********************* */}
+            {!isAdmin && (
               <>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaHome></FaHome>
@@ -80,6 +80,8 @@ const Dashbord = () => {
                 </li>
               </>
             )}
+
+            {/* ************************ */}
 
             <div className="divider bg-white h-1"></div>
 

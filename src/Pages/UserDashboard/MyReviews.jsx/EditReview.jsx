@@ -12,7 +12,7 @@ const EditReview = () => {
   const navigate = useNavigate();
 
   const loader = useLoaderData();
-  console.log("review data : ", loader);
+  console.log("review data aaaaaa: ", loader);
 
   const onSubmit = async (event) => {
     const EditreviewInfo = {

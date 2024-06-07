@@ -17,7 +17,7 @@ const AddReviews = () => {
   const axiosSequre = useAxiosSecure();
   const navigate = useNavigate();
 
-  console.log("this is loader info : ", loader);
+  // console.log("this is loader info bbbbbbbbbbbbbb: ", loader);
 
   const onSubmit = async (event) => {
     const reviewInfo = {

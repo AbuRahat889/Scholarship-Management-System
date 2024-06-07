@@ -21,6 +21,7 @@ import ManageReview from "../Pages/AdminDashboard/ManageReview/ManageReview";
 import ManageScholarships from "../Pages/AdminDashboard/ManageScholarships/ManageScholarships";
 import EditScholarship from "../Components/ManageScholarships/EditScholarship";
 import AppliedScholarship from "../Pages/AdminDashboard/AppliedScholarship/AppliedScholarship";
+import AdminProfile from "../Pages/AdminDashboard/AdminProfile/AdminProfile";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -102,6 +103,10 @@ export const router = createBrowserRouter([
       },
       //admin dashboard
       {
+        path: "/dashbord/adminprofile",
+        element: <AdminProfile></AdminProfile>,
+      },
+      {
         path: "/dashbord/manageusers",
         element: <ManageUsers></ManageUsers>,
       },
@@ -120,12 +125,13 @@ export const router = createBrowserRouter([
       {
         path: "/dashbord/editscholarship/:id",
         element: <EditScholarship></EditScholarship>,
-        loader: ({params}) => fetch(`http://localhost:5000/scholarship/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/scholarship/${params.id}`),
       },
       {
-        path:'/dashbord/allAppliedScholarship',
-        element:<AppliedScholarship></AppliedScholarship>
-      }
+        path: "/dashbord/allAppliedScholarship",
+        element: <AppliedScholarship></AppliedScholarship>,
+      },
     ],
   },
 ]);
