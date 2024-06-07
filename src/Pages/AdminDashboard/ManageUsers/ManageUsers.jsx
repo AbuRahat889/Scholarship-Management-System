@@ -41,25 +41,25 @@ const ManageUsers = () => {
   };
 
   //TODO: handle make admin
-  //   const handleAdmin = (id) => {
-  //     axiosSequre
-  //       .patch(`/users/admin/${id}`)
-  //       .then((res) => {
-  //         if (res.data.modifiedCount > 0) {
-  //           refetch();
-  //           Swal.fire({
-  //             position: "top-end",
-  //             icon: "success",
-  //             title: `${users.name} is admin now`,
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //         }
-  //       })
-  //       .then((error) => {
-  //         console.log(error);
-  //       });
-  //   };
+  const statusComplete = (user) => {
+    axiosSequre
+      .patch(`/users/admin/${user._id}`)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is admin`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="mt-10">
@@ -86,16 +86,22 @@ const ManageUsers = () => {
                 </td>
                 <td>{user.email} </td>
                 <td>
-                  <select
-                    defaultValue="default"
-                    className="select select-bordered"
-                  >
-                    <option disabled value={"default"}>
-                      User
-                    </option>
-                    <option value="moderator">Moderator</option>
-                    <option>Admin</option>
-                  </select>
+                  <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn m-1">
+                      {user.role ? user.role : "user"}
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mb-10"
+                    >
+                      <li onClick={() => statusComplete(user)}>
+                        <a>Admin</a>
+                      </li>
+                      <li>
+                        <a>Moderator</a>
+                      </li>
+                    </ul>
+                  </div>
                 </td>
                 <th>
                   <button

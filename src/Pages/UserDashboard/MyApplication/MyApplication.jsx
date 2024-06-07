@@ -60,7 +60,7 @@ const MyApplication = () => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: `You can not Edit application is ${Status}`,
+      text: `You can not Edit this, the application is ${Status}`,
       footer: '<a href="#">Why do I have this issue?</a>',
     });
   };

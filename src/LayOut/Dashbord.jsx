@@ -7,11 +7,13 @@ import { TfiMenu } from "react-icons/tfi";
 //   import "../LayOut/Dashbord.css";
 import { MdOutlineCastForEducation } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
+import UseAdmin from "../Hooks/UseAdmin";
 //   import UseAdmin from "../../Hooks/UseAdmin";
 
 const Dashbord = () => {
   //TODO : get isadmin value form database
-  const isAdmin = false;
+  const [isAdmin] = UseAdmin();
+  // const isAdmin = true;
 
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -26,7 +28,7 @@ const Dashbord = () => {
               <>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <FaHome></FaHome>
-                  <NavLink to={"/dashbord/adminHome"}> Admin Profile</NavLink>
+                  <NavLink to={"/dashbord/adminHome"}>Admin Profile</NavLink>
                 </li>
                 <li className="flex gap-2 items-center text-2xl mb-6">
                   <IoSchoolSharp />

@@ -22,7 +22,7 @@ const SocailMedia = () => {
           image: result.user.photoURL,
         };
         axiosPublic.post(`/users`, userInfo).then((res) => {
-          console.log(res);
+          console.log(res.data);
 
           Swal.fire({
             title: "Good job!",

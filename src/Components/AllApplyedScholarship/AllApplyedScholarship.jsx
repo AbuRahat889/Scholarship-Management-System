@@ -42,9 +42,11 @@ const AllApplyedScholarship = () => {
       }
     });
   };
-  const loadPatch = (id) => {
+
+  //handle status of application
+  const statusProcess = (item) => {
     axiosSequre
-      .patch(`/application/${id}`)
+      .patch(`/application/${item._id}`)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
@@ -61,14 +63,7 @@ const AllApplyedScholarship = () => {
         console.log(error);
       });
   };
-
-  //handle status of application
-  const statusProcess = (item) => {
-    console.log("click the: ", item);
-    loadPatch(item._id);
-  };
   const statusComplete = (item) => {
-    console.log("click the: ", item);
     axiosSequre
       .patch(`/applicationc/${item._id}`)
       .then((res) => {
@@ -118,30 +113,16 @@ const AllApplyedScholarship = () => {
                 <td>{item.Subject_Category}</td>
 
                 <td>
-                  {/* <select
-                    defaultValue="default"
-                    className="select select-bordered"
-                  >
-                    <option disabled value={"default"}>
-                      pending
-                    </option>
-                    <option value="processing">
-                      <button onClick={() => handleStatus(item)}>
-                        processing
-                      </button>
-                    </option>
-                    <option value="completed">completed</option>
-                  </select> */}
                   <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn m-1">
                       {item.Status}
                     </div>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mb-10"
                     >
                       <li onClick={() => statusProcess(item)}>
-                        <a value="processing">processing</a>
+                        <a>processing</a>
                       </li>
                       <li onClick={() => statusComplete(item)}>
                         <a>complete</a>
@@ -192,11 +173,10 @@ const AllApplyedScholarship = () => {
                       <li className="py-1">{item.Scholarship_category}</li>
                       <li className="py-1">{item.Degree}</li>
                       <li className="py-1">{item.Scholarship_Name}</li>
-                      <li className="py-1">
-                        Application Fee : {item.Application_fees}
-                      </li>
-                    </ul>
 
+                      <li className="py-1">S.S.C Result : {item.SSC_result}</li>
+                      <li className="py-1">H.S.C Result : {item.HSC_result}</li>
+                    </ul>
                     <div className="modal-action">
                       <form method="dialog">
                         <button className="btn">Close</button>
