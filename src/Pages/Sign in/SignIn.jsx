@@ -46,7 +46,7 @@ const SignIn = () => {
   return (
     <div>
       <Helmet>
-        <title>Car Doctor | Sign In </title>
+        <title>EduScholarHub | Sign In </title>
       </Helmet>
       <div className="hero ">
         <div className="hero-content flex-col lg:flex-row gap-10">

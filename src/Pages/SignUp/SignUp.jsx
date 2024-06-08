@@ -79,7 +79,7 @@ const SignUp = () => {
   return (
     <div className="flex justify-center items-center min-h-[calc(100vh-306px)]">
       <Helmet>
-        <title>Bistro-Boss || Sign In</title>
+        <title>EduScholarHub || Sign In</title>
       </Helmet>
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
         <div

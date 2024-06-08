@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contex/AuthProvaider";
 
 const axiosSequre = axios.create({
+  // baseURL: "https://scholarship-management-system-server.vercel.app",
   baseURL: "https://scholarship-management-system-server.vercel.app",
 });
 
