@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/scholarship/${params.id}`),
+          fetch(`${import.meta.env.VITE_SITE_LINK}/scholarship/${params.id}`),
       },
       {
         path: "/applyscholarship",
@@ -86,13 +86,13 @@ export const router = createBrowserRouter([
         path: "/dashbord/update/:id",
         element: <Update></Update>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/applications/${params.id}`),
+          fetch(`${import.meta.env.VITE_SITE_LINK}/applications/${params.id}`),
       },
       {
         path: "/dashbord/review/:id",
         element: <AddReviews></AddReviews>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/applications/${params.id}`),
+          fetch(`${import.meta.env.VITE_SITE_LINK}/applications/${params.id}`),
       },
       {
         path: "/dashbord/myreviews",
@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
         path: "/dashbord/editreview/:id",
         element: <EditReview></EditReview>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/reviews/${params.id}`),
+          fetch(`${import.meta.env.VITE_SITE_LINK}/reviews/${params.id}`),
       },
 
       //admin dashboard
@@ -124,7 +124,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashbord/feedback/:id",
-        element: <Feedbacks></Feedbacks>
+        element: <Feedbacks></Feedbacks>,
       },
       {
         path: "/dashbord/managescholarship",
@@ -134,7 +134,7 @@ export const router = createBrowserRouter([
         path: "/dashbord/editscholarship/:id",
         element: <EditScholarship></EditScholarship>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/scholarship/${params.id}`),
+          fetch(`${import.meta.env.VITE_SITE_LINK}/scholarship/${params.id}`),
       },
       {
         path: "/dashbord/allAppliedScholarship",
@@ -146,9 +146,9 @@ export const router = createBrowserRouter([
       },
       //Moderator Routes
       {
-        path:'/dashbord/oderatorProfile',
-        element:<ModeratorProfile></ModeratorProfile>
-      }
+        path: "/dashbord/oderatorProfile",
+        element: <ModeratorProfile></ModeratorProfile>,
+      },
     ],
   },
 ]);

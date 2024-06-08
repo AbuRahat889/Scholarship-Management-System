@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contex/AuthProvaider";
 
 const axiosSequre = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://scholarship-management-system-server.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -31,7 +31,7 @@ const useAxiosSecure = () => {
     },
     async (error) => {
       const status = error.response.status;
-      
+
       if (status == 401 || status == 403) {
         await logOut();
         navigate("/signin");
