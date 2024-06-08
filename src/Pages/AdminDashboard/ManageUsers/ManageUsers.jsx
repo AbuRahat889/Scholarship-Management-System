@@ -41,7 +41,7 @@ const ManageUsers = () => {
   };
 
   //TODO: handle make admin
-  const statusComplete = (user) => {
+  const makeAdmin = (user) => {
     axiosSequre
       .patch(`/users/admin/${user._id}`)
       .then((res) => {
@@ -51,6 +51,27 @@ const ManageUsers = () => {
             position: "top-end",
             icon: "success",
             title: `${user.name} is admin`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
+
+  //make Moderator
+  const makeModerator = (user) => {
+    axiosSequre
+      .patch(`/users/moderator/${user._id}`)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is Moderator`,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -94,10 +115,10 @@ const ManageUsers = () => {
                       tabIndex={0}
                       className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mb-10"
                     >
-                      <li onClick={() => statusComplete(user)}>
+                      <li onClick={() => makeAdmin(user)}>
                         <a>Admin</a>
                       </li>
-                      <li>
+                      <li onClick={() => makeModerator(user)}>
                         <a>Moderator</a>
                       </li>
                     </ul>

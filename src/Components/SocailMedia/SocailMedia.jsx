@@ -20,6 +20,7 @@ const SocailMedia = () => {
           name: result.user.displayName,
           email: result.user.email,
           image: result.user.photoURL,
+          
         };
         axiosPublic.post(`/users`, userInfo).then((res) => {
           console.log(res.data);

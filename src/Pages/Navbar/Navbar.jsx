@@ -2,19 +2,35 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Contex/AuthProvaider";
 import "./Navbar.css";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
   // console.log(user);displayName
   const handleLogout = () => {
     logOut();
   };
 
+  const { data: users = [] } = useQuery({
+    queryKey: ["users", user?.email],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/users/${user.email}`);
+      return res.data;
+    },
+  });
+
+  console.log("user role ,", users);
+
   const navlink = (
     <div className="text-xl space-x-12">
       <NavLink to={"/"}>Home</NavLink>
       <NavLink to={"/allScholarShip"}>All Scholarship</NavLink>
-      <NavLink to={"/dashbord/userprofile"}>Dashboard</NavLink>
+      {user?.role === "admin" && (
+        <NavLink to={"/dashbord/adminprofile"}>Admin Dashboard</NavLink>
+      )}
+      <NavLink to={"/dashbord"}>Dashboard</NavLink>
     </div>
   );
   return (

@@ -80,6 +80,7 @@ const MyApplication = () => {
               <th>Degree</th>
               <th>Scholarship_category</th>
               <th>Status</th>
+              <th>Feedback</th>
               <th>Action</th>
               <th>Reviwe</th>
             </tr>
@@ -94,6 +95,7 @@ const MyApplication = () => {
                 <td>{item.Degree}</td>
                 <td>{item.Scholarship_category}</td>
                 <td>{item.Status}</td>
+                <td>{item?.Feedback?.Feedback}</td>
                 <td>
                   <ul className="flex items-center gap-1 text-xl">
                     <li className="tooltip" data-tip="details">

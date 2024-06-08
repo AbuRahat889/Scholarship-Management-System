@@ -22,6 +22,9 @@ import ManageScholarships from "../Pages/AdminDashboard/ManageScholarships/Manag
 import EditScholarship from "../Components/ManageScholarships/EditScholarship";
 import AppliedScholarship from "../Pages/AdminDashboard/AppliedScholarship/AppliedScholarship";
 import AdminProfile from "../Pages/AdminDashboard/AdminProfile/AdminProfile";
+import AdminRouts from "./AdminRouts";
+import ModeratorProfile from "../Pages/ModeratorDashboard/ModeratorProfile/ModeratorProfile";
+import Feedbacks from "../Pages/AdminDashboard/Feedback/Feedbacks";
 
 // AuthProvaider.jsx
 export const router = createBrowserRouter([
@@ -101,6 +104,7 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/reviews/${params.id}`),
       },
+
       //admin dashboard
       {
         path: "/dashbord/adminprofile",
@@ -119,6 +123,10 @@ export const router = createBrowserRouter([
         element: <ManageReview></ManageReview>,
       },
       {
+        path: "/dashbord/feedback/:id",
+        element: <Feedbacks></Feedbacks>
+      },
+      {
         path: "/dashbord/managescholarship",
         element: <ManageScholarships></ManageScholarships>,
       },
@@ -130,8 +138,17 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashbord/allAppliedScholarship",
-        element: <AppliedScholarship></AppliedScholarship>,
+        element: (
+          <AdminRouts>
+            <AppliedScholarship></AppliedScholarship>
+          </AdminRouts>
+        ),
       },
+      //Moderator Routes
+      {
+        path:'/dashbord/oderatorProfile',
+        element:<ModeratorProfile></ModeratorProfile>
+      }
     ],
   },
 ]);

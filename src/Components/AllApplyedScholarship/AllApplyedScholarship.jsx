@@ -4,10 +4,14 @@ import { TbListDetails } from "react-icons/tb";
 import { MdDelete, MdFeedback } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Feedback from "../Feedback/Feedback";
+import { useState } from "react";
 // import useScholarship from "../../Hooks/useScholarship";
 
 const AllApplyedScholarship = () => {
   const axiosSequre = useAxiosSecure();
+
+  const [modal, setModal] = useState();
 
   const { refetch, data: applications = [] } = useQuery({
     queryKey: ["applications"],
@@ -46,7 +50,7 @@ const AllApplyedScholarship = () => {
   //handle status of application
   const statusProcess = (item) => {
     axiosSequre
-      .patch(`/application/${item._id}`)
+      .patch(`/applicationp/${item._id}`)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
@@ -82,6 +86,14 @@ const AllApplyedScholarship = () => {
         console.log(error);
       });
   };
+  //handle feedback
+  const handleFeedback = (item) => {
+    axiosSequre.get(`applications/${item._id}`).then((res) => {
+      setModal(res.data);
+    });
+    document.getElementById("my_modal_2").showModal();
+  };
+  console.log("modal info", modal);
 
   return (
     <div>
@@ -143,7 +155,7 @@ const AllApplyedScholarship = () => {
                     </li>
                     <li className="tooltip" data-tip="Feedback">
                       <Link>
-                        <button>
+                        <button onClick={() => handleFeedback(item)}>
                           <MdFeedback />
                         </button>
                       </Link>
@@ -189,6 +201,18 @@ const AllApplyedScholarship = () => {
           </tbody>
         </table>
       </div>
+
+      {/* show feedback modal  */}
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <Feedback modal={modal}></Feedback>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
