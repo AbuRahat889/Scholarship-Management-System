@@ -1,4 +1,5 @@
 import Banner from "../Banner/Banner";
+import ContactUs from "../ContactUs/ContactUs";
 import PopulerSub from "../PopularSubject/PopulerSub";
 import Sponcer from "../Sponcer/Sponcer";
 import Testimonial from "../Testimonial/Testimonial";
@@ -12,6 +13,7 @@ const Home = () => {
       <PopulerSub></PopulerSub>
       <TopScholarship></TopScholarship>
       <Testimonial></Testimonial>
+      <ContactUs></ContactUs>
     </div>
   );
 };
