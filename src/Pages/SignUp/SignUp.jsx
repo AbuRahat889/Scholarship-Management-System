@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const [error, setError] = useState();
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +22,7 @@ const SignUp = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const image = form.photoURL.value;
 
     //password validation
     const hasUpperCase = /[A-Z]/;
@@ -49,21 +50,25 @@ const SignUp = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-
-        //store user info in database
-        const userInfo = {
-          name,
-          email,
-        };
-        axiosPublic.post(`/users`, userInfo).then((res) => {
-          if (res.data.insertedId) {
-            Swal.fire({
-              title: "Good job!",
-              text: "You signUp Successfully!",
-              icon: "success",
-            });
-            navigate("/");
-          }
+        updateUserProfile(name, image)
+        .then((res) => {
+          console.log(res);
+          //store user info in database
+          const userInfo = {
+            name,
+            email,
+            image,
+          };
+          axiosPublic.post(`/users`, userInfo).then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "Good job!",
+                text: "You signUp Successfully!",
+                icon: "success",
+              });
+              navigate("/");
+            }
+          });
         });
       })
       .catch((error) => {
@@ -138,6 +143,20 @@ const SignUp = () => {
                 name="email"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                 type="email"
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                className="block mb-2 text-sm font-medium text-gray-600 "
+                htmlFor="LoggingEmailAddress"
+              >
+                Image Link
+              </label>
+              <input
+                id="photoURL"
+                name="photoURL"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                type="text"
               />
             </div>
 

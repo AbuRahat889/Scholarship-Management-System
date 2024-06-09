@@ -8,7 +8,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-  // console.log(user);displayName
+  console.log(user);
   const handleLogout = () => {
     logOut();
   };
