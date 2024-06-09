@@ -21,16 +21,22 @@ const Navbar = () => {
     },
   });
 
-  console.log("user role ,", users);
+  // console.log("user role ,", users);
 
   const navlink = (
     <div className="text-xl space-x-12">
       <NavLink to={"/"}>Home</NavLink>
       <NavLink to={"/allScholarShip"}>All Scholarship</NavLink>
-      {user?.role === "admin" && (
+
+      {users?.role === "admin" && (
         <NavLink to={"/dashbord/adminprofile"}>Admin Dashboard</NavLink>
       )}
-      <NavLink to={"/dashbord"}>Dashboard</NavLink>
+      {users?.role === "moderator" && (
+        <NavLink to={"/dashbord/oderatorProfile"}>Moderator Dashboard</NavLink>
+      )}
+      {users?.role !== "admin" && users?.role !== "moderator" && (
+        <NavLink to={"/dashbord/userprofile"}>Dashboard</NavLink>
+      )}
     </div>
   );
   return (

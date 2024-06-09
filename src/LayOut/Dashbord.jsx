@@ -12,8 +12,7 @@ const Dashbord = () => {
   //  get isadmin value form database
   const [isAdmin] = UseAdmin();
   const [isModerator] = useModerator();
-  // const isAdmin = true;
-  // console.log('is admin is ' , isA);
+
 
   return (
     <div className="max-w-screen-xl mx-auto">
